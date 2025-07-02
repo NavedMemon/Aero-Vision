@@ -1,0 +1,73 @@
+.notifications-container {
+    padding: 30px;
+    background: #0d1a2b;
+    border-radius: 18px;
+    color: #e0f7fa;
+    animation: fadeIn 0.5s ease;
+}
+
+.notifications-title {
+    font-size: 24px;
+    color: #00e0ff;
+    margin-bottom: 20px;
+    text-shadow: 0 0 6px #00e0ff80;
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.notification-card {
+    background: #101e32;
+    border-left: 4px solid #00e0ff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 224, 255, 0.1);
+    transition: 0.3s ease;
+}
+
+.notification-card:hover {
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.message {
+    font-size: 15px;
+    color: #d3eaff;
+    margin-bottom: 8px;
+}
+
+.timestamp {
+    font-size: 13px;
+    color: #8899aa;
+}
+
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.pagination button {
+    padding: 8px 14px;
+    background: #1a2a40;
+    border: 1px solid #00e0ff44;
+    color: #e0f7fa;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pagination button:hover {
+    background: #00e0ff;
+    color: #000;
+}
+
+.pagination .active {
+    background: #00e0ff;
+    color: #000;
+    font-weight: bold;
+}

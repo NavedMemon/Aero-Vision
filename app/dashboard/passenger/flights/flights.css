@@ -1,0 +1,130 @@
+.flight-title {
+    font-size: 30px;
+    color: #00c2ff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #00c2ff99;
+}
+
+.flight-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.flight-controls input,
+.flight-controls select {
+    padding: 10px;
+    border: 1px solid #00c2ff66;
+    border-radius: 8px;
+    width: 200px;
+    background: #fff;
+    font-weight: bold;
+    color: #222;
+    box-shadow: 0 0 10px #00c2ff22;
+}
+
+.flight-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+/* .flight-card {
+    background: #ffffff;
+    border-left: 4px solid #00c2ff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 20px #00c2ff33;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+} */
+
+.flight-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    width: 285px;
+    min-height: 440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 0 0 10px #00000055;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+
+.flight-card:hover {
+    transform: translateY(-5px);
+}
+
+.flight-card img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+.flight-price {
+    font-size: 20px;
+    color: #00c2ff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.flight-type {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #00c2ff22;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #007a99;
+    font-weight: 600;
+}
+
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pagination button {
+    background: #f2f2f2;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #333;
+    font-weight: 600;
+    box-shadow: 0 0 10px #00c2ff22;
+    transition: 0.3s ease;
+}
+
+.pagination .active {
+    background: #00c2ff;
+    color: white;
+}
+
+.book-now-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #ffffff10;
+    border: 1px solid #00f6ff;
+    color: #00f6ff;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.book-now-btn:hover {
+    background-color: #00f6ff;
+    color: #000;
+    border-color: #00f6ff;
+    transform: scale(1.05);
+}

@@ -1,0 +1,269 @@
+/* .register-container {
+    display: flex;
+    height: 100vh;
+    background-color: #101010;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.register-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #222;
+    background: radial-gradient(circle at center, #101010, #0a0a0a);
+}
+
+.logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: logoGlow 3s ease-in-out infinite;
+}
+
+.register-logo {
+    width: 250px;
+    max-width: 80%;
+    filter: drop-shadow(0 0 20px #00c2ff);
+    transform: rotate(-10deg);
+}
+
+.brand-text {
+    font-size: 28px;
+    color: #00c2ff;
+    margin-top: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+@keyframes logoGlow {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(-10deg);
+    }
+
+    50% {
+        transform: scale(1.05) rotate(-10deg);
+    }
+}
+
+.register-right {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #00c2ff;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.register-form input,
+.register-form select {
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: none;
+    background-color: #1a1a1a;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+    outline: 2px solid #00c2ff;
+    background-color: #222;
+}
+
+.register-btn {
+    padding: 12px;
+    background-color: #00c2ff;
+    border: none;
+    border-radius: 6px;
+    color: #101010;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.register-btn:hover {
+    background-color: #00a9dd;
+}
+
+.error {
+    color: #ff4d4d;
+    margin-bottom: -10px;
+    font-size: 14px;
+    font-weight: 500;
+} */
+
+
+/* Root container */
+.register-container {
+    display: flex;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background-color: #0a0a0a;
+    color: white;
+    overflow: hidden;
+}
+
+/* Left: 3D Airplane + Branding */
+.register-left {
+    flex: 1;
+    background: radial-gradient(circle at center, #0d0d0d, #080808);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #111;
+    position: relative;
+}
+
+.register-left canvas {
+    border-radius: 20px;
+    box-shadow: 0 0 30px #00c2ff44;
+    max-width: 100%;
+    height: auto;
+}
+
+.brand {
+    font-size: 2.5rem;
+    color: #00c2ff;
+    margin-top: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
+    letter-spacing: 2px;
+    z-index: 2;
+}
+
+/* Right: Form */
+.register-right {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(145deg, #0a0a0a, #121212);
+    position: relative;
+    z-index: 2;
+}
+
+/* Title */
+.register-title {
+    font-size: 2.2rem;
+    color: #00c2ff;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 0 0 10px #00c2ff;
+}
+
+/* Form */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.register-form input,
+.register-form select {
+    padding: 14px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    background: #1a1a1a;
+    color: white;
+    box-shadow: 0 0 8px rgba(0, 194, 255, 0.2);
+    transition: 0.3s ease;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+    outline: 2px solid #00c2ff;
+    background-color: #222;
+    box-shadow: 0 0 15px #00c2ff99;
+}
+
+/* Submit Button */
+.register-form button {
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #00c2ff, #00a6d4);
+    color: #0a0a0a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #00c2ff88;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.register-form button:hover {
+    background: linear-gradient(135deg, #00bfff, #0099cc);
+    transform: scale(1.03);
+}
+
+/* Error Message */
+.error {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.register-link {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.register-link a {
+    color: #00c2ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+    color: #00e0ff;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-container {
+        flex-direction: column;
+    }
+
+    .register-left,
+    .register-right {
+        flex: none;
+        width: 100%;
+        height: 50vh;
+    }
+
+    .register-right {
+        padding: 30px;
+    }
+
+    .register-title {
+        font-size: 1.8rem;
+    }
+}
