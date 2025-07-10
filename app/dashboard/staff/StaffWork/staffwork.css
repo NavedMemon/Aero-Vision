@@ -1,0 +1,88 @@
+.staff-dashboard-wrapper {
+    display: flex;
+    height: 100vh;
+    background-color: #0d1b2a;
+}
+
+.staff-dashboard-main {
+    flex: 1;
+    padding: 40px;
+    background-color: #102133;
+    color: white;
+    overflow-y: auto;
+}
+
+.work-heading {
+    font-size: 24px;
+    color: #00ffff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 6px #00ffffaa;
+}
+
+.work-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #12263a;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00ffff33;
+}
+
+.work-table th,
+.work-table td {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid #1f354d;
+    font-size: 14px;
+}
+
+.work-table th {
+    background-color: #1e3a56;
+    color: #00ffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.status.pending {
+    color: orange;
+}
+
+.status.in\ progress {
+    color: yellow;
+}
+
+.status.completed {
+    color: lime;
+}
+
+.start-btn,
+.finish-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s ease;
+}
+
+.start-btn {
+    background-color: #00bfff;
+    color: #000;
+}
+
+.finish-btn {
+    background-color: #00ff99;
+    color: #000;
+}
+
+.start-btn:disabled,
+.finish-btn:disabled {
+    background-color: #555;
+    color: #aaa;
+    cursor: not-allowed;
+}

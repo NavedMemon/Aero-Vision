@@ -1,0 +1,83 @@
+.staff-sidebar {
+    width: 260px;
+    background: linear-gradient(to bottom, #0d1b2a, #09111e);
+    color: #00ffff;
+    height: 100vh;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #00ffff22;
+    box-shadow: 4px 0 12px rgba(0, 255, 255, 0.05);
+}
+
+.staff-logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00ffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.staff-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    background-color: #112233;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 10px #00ffff33;
+}
+
+.staff-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.staff-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00ffff;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.staff-nav-link:hover {
+    background-color: #00ffff22;
+    box-shadow: 0 0 10px #00ffff55;
+}
+
+.logout-section {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #fa3a3a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #e60000;
+    box-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+}
