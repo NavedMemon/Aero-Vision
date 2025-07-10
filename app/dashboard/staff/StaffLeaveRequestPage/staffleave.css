@@ -1,0 +1,143 @@
+.staff-leave-page {
+    display: flex;
+    height: 100vh;
+    background-color: #0d1b2a;
+    color: #fff;
+}
+
+.leave-main {
+    flex: 1;
+    padding: 40px;
+    background: linear-gradient(135deg, #0f1c2e, #0d1b2a);
+    overflow-y: auto;
+}
+
+.leave-title {
+    font-size: 24px;
+    color: #00ffff;
+    margin-bottom: 20px;
+}
+
+.leave-form {
+    background-color: #12263a;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #1f354d;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #00ffff;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #00ffff44;
+    border-radius: 8px;
+    background-color: #0d1b2a;
+    color: white;
+    font-size: 14px;
+    resize: none;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 8px #00ffff44;
+}
+
+.submit-btn {
+    padding: 12px 20px;
+    background-color: #00ffff;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #00e6e6;
+    box-shadow: 0 0 10px #00ffff88;
+}
+
+.past-title {
+    font-size: 20px;
+    color: #00ffff;
+    margin-bottom: 15px;
+}
+
+.leave-history {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.leave-card {
+    background-color: #1e3a56;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #00ffff;
+}
+
+.leave-card .status {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.status.accepted {
+    color: #00ff99;
+}
+
+.status.pending {
+    color: #ffff66;
+}
+
+.status.rejected {
+    color: #ff6666;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    background-color: #12263a;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: #00ffff;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.1);
+}
+
+.pagination-controls button {
+    background-color: #00ffff;
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.pagination-controls button:hover {
+    background-color: #00e6e6;
+}
+
+.pagination-controls button:disabled {
+    background-color: #555;
+    color: #ccc;
+    cursor: not-allowed;
+}

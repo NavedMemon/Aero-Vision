@@ -1,0 +1,78 @@
+.staff-dashboard-wrapper {
+    display: flex;
+    height: 100vh;
+    background-color: #0d1b2a;
+}
+
+/* === Main Content === */
+.complaint-status-container {
+    flex: 1;
+    padding: 40px;
+    background: #102133;
+    color: #fff;
+    overflow-y: auto;
+}
+
+.complaint-status-title {
+    font-size: 24px;
+    color: #00ffff;
+    margin-bottom: 25px;
+    text-shadow: 0 0 6px #00ffff80;
+}
+
+/* === Table Layout === */
+.complaint-table {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.table-header,
+.table-row {
+    display: grid;
+    grid-template-columns: 60px 1.5fr 1fr 1fr 1.5fr;
+    padding: 14px 20px;
+    background: #12263a;
+    border-radius: 10px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.table-header {
+    background: #1f354d;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 4px #00ffff55;
+    border: 1px solid #00ffff33;
+}
+
+.table-row:hover {
+    background-color: #1a2c40;
+    transition: 0.3s;
+    box-shadow: 0 0 10px #00ffff22;
+}
+
+/* === Status Badge Styles === */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.1);
+}
+
+.status-badge.pending {
+    background-color: #ffcc00;
+    color: #000;
+}
+
+.status-badge.resolved {
+    background-color: #00ff99;
+    color: #000;
+}
+
+.status-badge.in-progress {
+    background-color: #3399ff;
+    color: #fff;
+}
