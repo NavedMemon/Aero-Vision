@@ -1,0 +1,224 @@
+.admin-flight-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #00c2ff;
+  margin-bottom: 20px;
+}
+
+.admin-flight-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-flight-controls input,
+.admin-flight-controls select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.admin-add-flight-button,
+.admin-add-airline-button {
+  background: #00c2ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.admin-add-flight-button:hover,
+.admin-add-airline-button:hover {
+  background: #00aacc;
+}
+
+.admin-airline-form-box,
+.admin-flight-form-box {
+  background: #fff;
+  border-left: 4px solid #00c2ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00c2ff22;
+  margin-bottom: 30px;
+}
+
+.admin-airline-form,
+.admin-flight-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-airline-form input,
+.admin-airline-form select,
+.admin-flight-form input,
+.admin-flight-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.admin-airline-form input[type="file"] {
+  padding: 5px;
+}
+
+.admin-airline-form button,
+.admin-flight-form button {
+  background: #00c2ff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.admin-airline-form button:hover,
+.admin-flight-form button:hover {
+  background: #00aacc;
+}
+
+.admin-flight-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.admin-flight-card {
+  background: #fff;
+  border-left: 4px solid #00c2ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00c2ff22;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+
+.admin-flight-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.admin-flight-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #00aacc;
+}
+
+.admin-flight-card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.admin-flight-price {
+  font-weight: 600;
+  color: #28a745;
+}
+
+.admin-status-on-time {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.admin-status-delayed {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.admin-status-cancelled {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.admin-flight-type {
+  font-size: 12px;
+  color: #555;
+  background: #f5f5f5;
+  padding: 5px 10px;
+  border-radius: 12px;
+  align-self: flex-start;
+}
+
+.admin-flight-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.admin-edit-button,
+.admin-delete-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.admin-edit-button {
+  background: #00c2ff;
+  color: white;
+}
+
+.admin-edit-button:hover {
+  background: #00aacc;
+}
+
+.admin-delete-button {
+  background: #ff4d4d;
+  color: white;
+}
+
+.admin-delete-button:hover {
+  background: #ff1a1a;
+}
+
+.admin-pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.admin-pagination button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.admin-pagination button:hover {
+  background: #f5f5f5;
+}
+
+.admin-pagination button.active {
+  background: #00c2ff;
+  color: white;
+  border-color: #00c2ff;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
