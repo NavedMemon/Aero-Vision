@@ -112,7 +112,7 @@
 } */
 
 
-/* Root container */
+/* 
 .register-container {
     display: flex;
     height: 100vh;
@@ -122,7 +122,7 @@
     overflow: hidden;
 }
 
-/* Left: 3D Airplane + Branding */
+
 .register-left {
     flex: 1;
     background: radial-gradient(circle at center, #0d0d0d, #080808);
@@ -135,7 +135,7 @@
 }
 
 .register-left canvas {
-    border-radius: 20px;
+    
     box-shadow: 0 0 30px #00c2ff44;
     max-width: 100%;
     height: auto;
@@ -151,7 +151,7 @@
     z-index: 2;
 }
 
-/* Right: Form */
+
 .register-right {
     flex: 1;
     padding: 60px;
@@ -163,7 +163,7 @@
     z-index: 2;
 }
 
-/* Title */
+
 .register-title {
     font-size: 2.2rem;
     color: #00c2ff;
@@ -173,7 +173,7 @@
     text-shadow: 0 0 10px #00c2ff;
 }
 
-/* Form */
+
 .register-form {
     display: flex;
     flex-direction: column;
@@ -199,7 +199,7 @@
     box-shadow: 0 0 15px #00c2ff99;
 }
 
-/* Submit Button */
+
 .register-form button {
     padding: 14px;
     font-size: 1rem;
@@ -218,7 +218,7 @@
     transform: scale(1.03);
 }
 
-/* Error Message */
+
 .error {
     color: #ff4d4d;
     font-size: 14px;
@@ -244,9 +244,84 @@
     color: #00e0ff;
 }
 
+.mic-container {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.mic-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.mic-button:hover {
+    background-color: #333;
+}
+
+.sentence-box {
+    background-color: #1d1717;
+    padding: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+    border-left: 5px solid #007bff;
+}
+
+.spoken {
+    font-style: italic;
+    margin: 10px 0;
+    color: green;
+}
 
 
-/* Responsive Design */
+.small-input {
+    font-size: 0.9rem;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.small-btn {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+}
+
+.mic-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+
+.mic-btn:hover {
+    background-color: #222;
+}
+
+.spoken-output {
+    font-size: 0.9rem;
+    margin: 6px 0;
+}
+
+.sentence-box {
+    background: #f5f5f5;
+    padding: 8px;
+    font-size: 0.9rem;
+    border-left: 3px solid #888;
+    margin-bottom: 10px;
+}
+
+
+
+
 @media (max-width: 768px) {
     .register-container {
         flex-direction: column;
@@ -265,5 +340,206 @@
 
     .register-title {
         font-size: 1.8rem;
+    }
+} */
+
+/* Root container */
+.register-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background-color: #0a0a0a;
+    color: white;
+    overflow-y: auto;
+    /* Make page scrollable */
+}
+
+/* Left: 3D Airplane + Branding */
+.register-left {
+    flex: 1;
+    background: radial-gradient(circle at center, #0d0d0d, #080808);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #111;
+}
+
+.register-left canvas {
+    box-shadow: 0 0 30px #00c2ff44;
+    max-width: 100%;
+    height: auto;
+}
+
+.brand {
+    font-size: 2.5rem;
+    color: #00c2ff;
+    margin-top: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
+    letter-spacing: 2px;
+}
+
+/* Right: Form */
+.register-right {
+    flex: 1;
+    padding: 60px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: linear-gradient(145deg, #0a0a0a, #121212);
+    overflow-y: auto;
+}
+
+.register-title {
+    font-size: 2rem;
+    color: #00c2ff;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 0 0 10px #00c2ff;
+}
+
+/* Form */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.register-form input,
+.register-form select {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: none;
+    background: #1a1a1a;
+    color: white;
+    box-shadow: 0 0 8px rgba(0, 194, 255, 0.15);
+    transition: 0.3s ease;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+    outline: 2px solid #00c2ff;
+    background-color: #222;
+    box-shadow: 0 0 15px #00c2ff99;
+}
+
+/* Submit Button */
+.register-form button {
+    padding: 10px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #00c2ff, #00a6d4);
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00c2ff88;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.register-form button:hover {
+    background: linear-gradient(135deg, #00bfff, #0099cc);
+    transform: scale(1.02);
+}
+
+/* Error Message */
+.error {
+    color: #ff4d4d;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* Mic & Speech Section */
+.mic-container {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.mic-button {
+    background-color: black;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.mic-button.listening {
+    background-color: darkred;
+    color: #fff;
+}
+
+.mic-button:hover {
+    background-color: #333;
+}
+
+.sentence-box {
+    background: #101820;
+    color: #00c2ff;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-left: 4px solid #00c2ff;
+    margin-top: 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #00c2ff44;
+}
+
+.spoken {
+    font-style: italic;
+    margin: 8px 0;
+    color: lightgreen;
+}
+
+.spoken-output {
+    font-size: 0.9rem;
+    margin: 6px 0;
+}
+
+.register-link {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.register-link a {
+    color: #00c2ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+    color: #00e0ff;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .register-container {
+        flex-direction: column;
+    }
+
+    .register-left,
+    .register-right {
+        flex: none;
+        width: 100%;
+        height: auto;
+    }
+
+    .register-right {
+        padding: 30px 20px;
+    }
+
+    .register-title {
+        font-size: 1.6rem;
     }
 }

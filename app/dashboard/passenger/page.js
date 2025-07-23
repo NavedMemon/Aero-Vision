@@ -192,6 +192,7 @@ const PassengerPage = () => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState(new Date());
   const [greeting, setGreeting] = useState("");
+  const [passengerName, setPassengerName] = useState("");
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -202,6 +203,29 @@ const PassengerPage = () => {
       setGreeting(getGreeting(now.getHours()));
     }, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const fetchPassenger = async () => {
+      const token = localStorage.getItem("passengerToken");
+      if (!token) return;
+
+      const res = await fetch("/api/passenger/validuser", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setPassengerName(data.passenger.name);
+      } else {
+        setPassengerName("Guest");
+      }
+    };
+
+    fetchPassenger();
   }, []);
 
   const getGreeting = (hour) => {
@@ -215,7 +239,7 @@ const PassengerPage = () => {
       <Sidebar />
 
       <div className="passenger-dashboard-main-bright">
-        <h1 className="passenger-welcome">Welcome, Sarjil 👋</h1>
+        <h1 className="passenger-welcome">Welcome, {passengerName} 👋</h1>
 
         <div className="passenger-clock-calendar-wrapper">
           <div className="passenger-clock-box">
