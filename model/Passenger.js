@@ -9,6 +9,11 @@ const PassengerSchema = new mongoose.Schema(
     password: { type: String, required: true },
     spokenSentence: { type: String, required: true },
     targetSentence: { type: String, required: true },
+    isBlocked: {
+      type: String,
+      enum: ["Y", "N"],
+      default: "N",
+    },
   },
   { timestamps: true }
 );

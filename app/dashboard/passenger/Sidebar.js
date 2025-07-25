@@ -134,7 +134,7 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/passenger/logout", {
+      await fetch("/api/logout", {
         method: "GET",
       });
       router.replace("/login"); // Redirect to login page

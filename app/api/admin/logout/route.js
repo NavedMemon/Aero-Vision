@@ -1,7 +1,7 @@
 // import { NextResponse } from "next/server";
 
 // export async function GET() {
-//   const response = NextResponse.json({ message: "Logout successful." });
+//   const response = NextResponse.json({ message: "Admin logout successful." });
 
 //   response.cookies.set("token", "", {
 //     httpOnly: true,
@@ -20,13 +20,14 @@ import { logLogout } from "@/utils/logoutLogger";
 export async function GET(req) {
   await logLogout(req);
 
-  return NextResponse.json(
-    { success: true, message: "Logout successful." },
-    {
-      status: 200,
-      headers: {
-        "Set-Cookie": `token=; HttpOnly; Path=/; Max-Age=0; SameSite=Strict; Secure`,
-      },
-    }
-  );
+  const response = NextResponse.json({ message: "Admin logout successful." });
+  response.cookies.set("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+    expires: new Date(0),
+  });
+
+  return response;
 }
