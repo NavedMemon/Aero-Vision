@@ -1,0 +1,36 @@
+.blockedpage {
+    background-color: #131313;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.blockedimg {
+    width: 10vw;
+    height: auto;
+}
+
+.blockedpage>h1 {
+    color: white;
+    margin: 0px;
+}
+
+.blockedpage>h5 {
+    color: #888;
+}
+
+.backbtn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px;
+    padding-inline: 10px;
+    border-radius: 10px;
+}
+
+.backbtn:hover {
+    cursor: pointer;
+}

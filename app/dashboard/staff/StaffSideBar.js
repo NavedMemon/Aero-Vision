@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   FaHome,
@@ -50,7 +52,22 @@ function StaffSidebar() {
           <FaBell /> Notifications
         </Link>
         <div className="logout-section">
-          <button className="logout-btn">
+          <button
+            className="logout-btn"
+            onClick={async () => {
+              try {
+                const res = await fetch("/api/logout", { method: "GET" });
+                if (res.ok) {
+                  window.location.href = "/login"; // or your login page path
+                } else {
+                  alert("Logout failed.");
+                }
+              } catch (err) {
+                console.error("Logout error:", err);
+                alert("Something went wrong.");
+              }
+            }}
+          >
             <FiLogOut style={{ marginRight: "8px" }} />
             Logout
           </button>
