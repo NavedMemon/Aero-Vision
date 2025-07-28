@@ -1,0 +1,439 @@
+/* Title */
+.admin-complaint-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #00c2ff;
+  margin-bottom: 20px;
+}
+
+/* Controls (Search, Status Filter, Export) */
+.admin-complaint-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.admin-complaint-controls input,
+.admin-complaint-controls select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 200px;
+  transition: border-color 0.3s ease;
+}
+
+.admin-complaint-controls input:focus,
+.admin-complaint-controls select:focus {
+  border-color: #00c2ff;
+  outline: none;
+}
+
+.admin-export-button {
+  background: #00c2ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.admin-export-button:hover {
+  background: #00aacc;
+}
+
+.admin-export-button:focus {
+  outline: 2px solid #00aacc;
+  outline-offset: 2px;
+}
+
+/* Table */
+.admin-complaint-table-container {
+  overflow-x: auto;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00c2ff22;
+}
+
+.admin-complaint-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.admin-complaint-table th,
+.admin-complaint-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.admin-complaint-table th {
+  background: #00c2ff;
+  color: white;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.admin-complaint-table tr {
+  transition: background 0.2s ease;
+}
+
+.admin-complaint-table tr:hover {
+  background: #f5f5f522;
+}
+
+.admin-complaint-table td {
+  border-left: 4px solid transparent;
+}
+
+.admin-complaint-table tr:nth-child(even) td {
+  background: #f9f9f9;
+}
+
+.admin-complaint-table tr:hover td {
+  border-left: 4px solid #00c2ff;
+}
+
+/* Status Colors and Dropdown */
+.admin-status-pending {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.admin-status-resolved {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.admin-status-cancelled {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.admin-status-select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.admin-status-select.admin-status-pending {
+  color: #ffc107;
+}
+
+.admin-status-select.admin-status-resolved {
+  color: #28a745;
+}
+
+.admin-status-select.admin-status-cancelled {
+  color: #dc3545;
+}
+
+.admin-status-select:focus {
+  border-color: #00c2ff;
+  outline: 2px solid #00c2ff;
+  outline-offset: 2px;
+}
+
+/* Action Buttons */
+.admin-complaint-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-view-button,
+.admin-delete-button,
+.admin-edit-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.admin-view-button {
+  background: #00c2ff;
+  color: white;
+}
+
+.admin-view-button:hover,
+.admin-view-button:focus {
+  background: #00aacc;
+  transform: translateY(-1px);
+}
+
+.admin-view-button:focus {
+  outline: 2px solid #00aacc;
+  outline-offset: 2px;
+}
+
+.admin-delete-button {
+  background: #ff4d4d;
+  color: white;
+}
+
+.admin-delete-button:hover:not(:disabled),
+.admin-delete-button:focus:not(:disabled) {
+  background: #ff1a1a;
+  transform: translateY(-1px);
+}
+
+.admin-delete-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.admin-delete-button:focus {
+  outline: 2px solid #ff1a1a;
+  outline-offset: 2px;
+}
+
+.admin-edit-button {
+  background: #00c2ff;
+  color: white;
+}
+
+.admin-edit-button:hover,
+.admin-edit-button:focus {
+  background: #00aacc;
+  transform: translateY(-1px);
+}
+
+.admin-edit-button:focus {
+  outline: 2px solid #00aacc;
+  outline-offset: 2px;
+}
+
+/* Modal */
+.admin-complaint-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.admin-complaint-modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00c2ff22;
+  border-left: 4px solid #00c2ff;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.admin-complaint-modal h3 {
+  margin-top: 0;
+  color: #00aacc;
+  font-size: 20px;
+}
+
+.admin-complaint-modal p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.admin-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.admin-modal-close:hover,
+.admin-modal-close:focus {
+  color: #00c2ff;
+}
+
+.admin-modal-close:focus {
+  outline: 2px solid #00c2ff;
+  outline-offset: 2px;
+}
+
+/* Edit Form */
+.admin-complaint-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-complaint-form input,
+.admin-complaint-form select,
+.admin-complaint-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.admin-complaint-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.admin-complaint-form input:focus,
+.admin-complaint-form select:focus,
+.admin-complaint-form textarea:focus {
+  border-color: #00c2ff;
+  outline: none;
+}
+
+.admin-complaint-form button,
+.admin-modal-cancel {
+  background: #00c2ff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.admin-complaint-form button:hover,
+.admin-complaint-form button:focus,
+.admin-modal-cancel:hover,
+.admin-modal-cancel:focus {
+  background: #00aacc;
+  transform: translateY(-1px);
+}
+
+.admin-complaint-form button:focus,
+.admin-modal-cancel:focus {
+  outline: 2px solid #00aacc;
+  outline-offset: 2px;
+}
+
+.admin-modal-cancel {
+  background: #ff4d4d;
+  margin-top: 10px;
+}
+
+.admin-modal-cancel:hover,
+.admin-modal-cancel:focus {
+  background: #ff1a1a;
+}
+
+.admin-modal-cancel:focus {
+  outline: 2px solid #ff1a1a;
+  outline-offset: 2px;
+}
+
+/* Pagination */
+.admin-complaint-pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.admin-complaint-pagination button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.admin-complaint-pagination button:hover:not(:disabled),
+.admin-complaint-pagination button:focus:not(:disabled) {
+  background: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+.admin-complaint-pagination button.active {
+  background: #00c2ff;
+  color: white;
+  border-color: #00c2ff;
+}
+
+.admin-complaint-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.admin-complaint-pagination button:focus {
+  outline: 2px solid #00c2ff;
+  outline-offset: 2px;
+}
+
+/* Empty State */
+.admin-no-complaints {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-complaint-controls input,
+  .admin-complaint-controls select {
+    width: 100%;
+  }
+  .admin-complaint-table th,
+  .admin-complaint-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .admin-complaint-table th:nth-child(3),
+  .admin-complaint-table td:nth-child(3) {
+    display: none; /* Hide Description on small screens */
+  }
+  .admin-complaint-modal {
+    width: 95%;
+  }
+  .admin-complaint-actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .admin-status-select {
+    width: 100%;
+  }
+}

@@ -1,0 +1,180 @@
+.admin-dashboard-new-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #fefefe 0%, #f2f2f2 100%);
+  color: #111;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: #0f0f0f;
+  border-right: 1px solid #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  box-shadow: 0 0 30px #00c2ff44;
+}
+
+.admin-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00f2ff;
+  margin-bottom: 40px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px #00f2ff99;
+}
+
+.admin-nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #aaa;
+  transition: 0.3s ease-in-out;
+}
+
+.admin-nav-link:hover {
+  color: #00eaff;
+  transform: scale(1.05);
+}
+
+.admin-logout {
+  margin-top: auto;
+  color: #ff4d4d;
+}
+
+.admin-logout:hover {
+  color: #ff1a1a;
+}
+
+.admin-dashboard-main-bright {
+  flex: 1;
+  padding: 40px 50px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.admin-welcome {
+  font-size: 32px;
+  font-weight: 600;
+  color: #00c2ff;
+  margin-bottom: 20px;
+}
+
+.admin-clock-calendar-wrapper {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.admin-clock-box,
+.admin-calendar-box,
+.admin-weather-box {
+  background: #fff;
+  border-left: 4px solid #00c2ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00c2ff22;
+  width: 300px;
+  min-width: 280px;
+  flex: 1;
+}
+
+.admin-calendar-box h3,
+.admin-clock-box h3,
+.admin-weather-box h3 {
+  margin-bottom: 10px;
+  color: #00aacc;
+}
+
+.admin-clock-box p.admin-clock-time {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.admin-clock-box p.admin-clock-date {
+  font-size: 16px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.admin-flight-info,
+.admin-passenger-info,
+.admin-alert-box {
+  margin-top: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00c2ff22;
+  border-left: 4px solid #00c2ff;
+}
+
+.admin-weather-box.animated {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-map {
+  height: 150px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.forecast-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.forecast-day {
+  text-align: center;
+}
+
+.weather-icon {
+  width: 60px;
+  height: 60px;
+}
+
+.weather-loading {
+  color: #777;
+}
+
+.weather-error {
+  color: red;
+}
+
+.custom-calendar {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.react-calendar__tile--now {
+  background: #00eaff44 !important;
+  border-radius: 6px;
+}
+
+.react-calendar__tile--active {
+  background: #00c2ff !important;
+  color: white !important;
+  border-radius: 6px;
+}

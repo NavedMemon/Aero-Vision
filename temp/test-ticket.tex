@@ -1,0 +1,114 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{qrcode}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\begin{document}
+\begin{center}
+  {\LARGE \textbf{Aero-Vision Flight Ticket \#1}} \\
+  \vspace{0.5cm}
+  \includegraphics[width=0.2\textwidth]{E:/Semester-9/Project/Aero-Vision/public/uploads/aero-vision-logo.png}
+\end{center}
+\vspace{0.5cm}
+\qrcode{https://example.com/booking/test}
+\section*{Flight Details}
+\begin{itemize}
+  \item \textbf{Flight Number}: \texttt{A1ZEX}
+\end{itemize}
+\end{document} 
+
+% \documentclass[a4paper,10pt]{article}
+% \usepackage[utf8]{inputenc}
+% \usepackage{helvet}
+% \usepackage{cinzel}
+% \usepackage{geometry}
+% \geometry{a4paper,left=1cm,right=1cm,top=1cm,bottom=1cm}
+% \usepackage{graphicx}
+% \usepackage{qrcode}
+% \usepackage{xcolor}
+% \usepackage{tikz}
+% \usetikzlibrary{calc,shadows.blur,patterns.meta}
+% \usepackage{pgfornament}
+% \usepackage{tabularx}
+% \usepackage{titlesec}
+% \usepackage{fancyhdr}
+% \definecolor{primaryBlue}{HTML}{2563EB}
+% \definecolor{primaryPurple}{HTML}{8B5CF6}
+% \definecolor{parchment}{HTML}{FDF5E6}
+% \definecolor{neonGlow}{HTML}{00FFFF}
+% \definecolor{metallicGold}{HTML}{D4A017}
+% \pagestyle{fancy}
+% \fancyhf{}
+% \fancyhead[C]{\color{primaryBlue}\sffamily\scriptsize Aero-Vision Airlines}
+% \fancyfoot[C]{\color{primaryPurple}\sffamily\scriptsize Page \thepage}
+% \setlength{\parindent}{0pt}
+% \titleformat{\section}[block]{\sffamily\bfseries\color{primaryBlue}\large}{}{0em}{}
+% \titlespacing*{\section}{0pt}{5pt}{2pt}
+% \begin{document}
+% \begin{tikzpicture}[remember picture,overlay]
+%   \fill[parchment!90] (current page.north west) rectangle (current page.south east);
+%   \node[opacity=0.1] at (current page.center) {%
+%     \begin{tikzpicture}
+%       \node at (0,0) {\includegraphics[width=0.5\paperwidth]{E:/Semester-9/Project/Aero-Vision/public/uploads/aero-vision-logo.png}};
+%     \end{tikzpicture}
+%   };
+%   \node[fill=parchment,inner sep=8pt,rounded corners=6pt,blur shadow={shadow xshift=2pt,shadow yshift=-2pt,shadow opacity=0.5}] 
+%     at ([xshift=0.8cm,yshift=-0.8cm]current page.north west) [anchor=north west] {%
+%     \begin{tikzpicture}
+%       \shade[inner color=primaryBlue,outer color=primaryPurple,opacity=0.95] (0,0) circle (0.75\paperwidth);
+%       \node at (0.5\paperwidth,0.75cm) {%
+%         \color{white}\fontfamily{cinzel}\selectfont\large\bfseries%
+%         \begin{tikzpicture}
+%           \node[inner sep=0pt,text=metallicGold] {Aero-Vision Flight Ticket \#1};
+%           \node[inner sep=0pt,text=white,yshift=0.05cm] {Aero-Vision Flight Ticket \#1};
+%         \end{tikzpicture}
+%       };
+%     \end{tikzpicture}
+%   };
+%   \node[pgfornament,anchor=north west,scale=0.5,color=metallicGold] at ([xshift=1cm,yshift=-1.3cm]current page.north west) {88};
+%   \node[pgfornament,anchor=north east,scale=0.5,color=metallicGold] at ([xshift=-1cm,yshift=-1.3cm]current page.north east) {88};
+%   \node[pgfornament,anchor=south west,scale=0.5,color=metallicGold] at ([xshift=1cm,yshift=1cm]current page.south west) {88};
+%   \node[pgfornament,anchor=south east,scale=0.5,color=metallicGold] at ([xshift=-1cm,yshift=1cm]current page.south east) {88};
+%   \draw[dashed,primaryPurple,line width=1.2pt,blur shadow={shadow xshift=1pt,shadow yshift=-1pt,shadow opacity=0.4}] (2cm,-1.3cm) -- (2cm,-16.5cm);
+%   \draw[primaryBlue,line width=1.5pt,rounded corners=6pt,blur shadow={shadow xshift=2pt,shadow yshift=-2pt,shadow opacity=0.3}] 
+%     (0.8cm,0.8cm) rectangle ([xshift=-0.8cm,yshift=-0.8cm]current page.north east);
+%   \path[pattern={Lines[angle=45,distance=2pt,line width=0.2pt]},pattern color=neonGlow!50] 
+%     (0.8cm,0.8cm) rectangle ([xshift=-0.8cm,yshift=-0.8cm]current page.north east);
+% \end{tikzpicture}
+% \vspace*{1.5cm}
+% \begin{center}
+%   \includegraphics[width=0.1\textwidth]{E:/Semester-9/Project/Aero-Vision/public/uploads/aero-vision-logo.png}
+%   \vspace{0.2cm}
+%   \begin{tikzpicture}
+%     \node[inner sep=3pt,draw=neonGlow,line width=1.5pt,rounded corners=3pt,blur shadow={shadow xshift=1pt,shadow yshift=-1pt,shadow opacity=0.7}] {%
+%       \begin{tikzpicture}
+%         \fill[white] (0,0) rectangle (1.9cm,1.9cm);
+%         \node at (0.95cm,0.95cm) {\qrcode[height=1.7cm]{https://example.com/booking/test}};
+%         \draw[neonGlow,opacity=0.4,dashed,line width=2pt] (0.95cm,0.95cm) circle (1.3cm);
+%         \draw[neonGlow,opacity=0.2,line width=1pt] (0.95cm,0.95cm) circle (1.5cm);
+%       \end{tikzpicture}
+%     };
+%   \end{tikzpicture}
+% \end{center}
+% \vspace{0.2cm}
+% \section*{Booking Details}
+% \begin{tabularx}{\textwidth}{>{\bfseries}lX}
+%   \hline
+%   \rowcolor{parchment!70}
+%   Total Paid & \texttt{\color{primaryBlue}Rs.24999.98} \\
+%   \hline
+% \end{tabularx}
+% \vspace{0.3cm}
+% \begin{center}
+%   \begin{tikzpicture}
+%     \node[inner sep=0pt,text=metallicGold] {\fontfamily{cinzel}\selectfont\small Embark on a Timeless Journey with Aero-Vision!};
+%     \node[inner sep=0pt,text=primaryPurple,yshift=0.03cm] {\fontfamily{cinzel}\selectfont\small Embark on a Timeless Journey with Aero-Vision!};
+%   \end{tikzpicture}
+% \end{center}
+% \end{document}

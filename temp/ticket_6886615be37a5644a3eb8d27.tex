@@ -1,0 +1,67 @@
+
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1.5cm}
+\usepackage{graphicx}
+\usepackage{qrcode}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{noto}
+
+\definecolor{headerblue}{RGB}{37,99,235}
+\definecolor{accentpurple}{RGB}{139,92,246}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\color{headerblue}\Large\textbf{Aero-Vision Flight Ticket}}
+\fancyfoot[C]{\thepage}
+
+\titleformat{\section}{\large\bfseries\color{headerblue}}{}{0em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accentpurple}}{}{0em}{}
+
+\begin{document}
+
+\vspace*{-1cm}
+\begin{center}
+  \includegraphics[width=0.2\textwidth]{/uploads/aero-vision-logo.png.jpg}
+  \vspace{0.5cm}
+  \Huge\textbf{Flight Ticket}
+  \vspace{0.5cm}
+  \qrcode[height=2cm]{6886615be37a5644a3eb8d27}
+  \vspace{0.5cm}
+  \small Booking ID: 6886615be37a5644a3eb8d27
+\end{center}
+
+\section*{Flight Details}
+\begin{description}[leftmargin=0cm, font=\normalfont]
+  \item[Flight Number:] S125R
+  \item[Airline:] Air India
+  \item[From:] Ahemedabad
+  \item[To:] London
+  \item[Departure:] 30/7/2025, 8:45:00 pm
+  \item[Gate:] Gate1,A3
+  \item[Baggage Allowance:] 45kg
+\end{description}
+
+\section*{Passenger Details}
+\begin{enumerate}[leftmargin=*]
+  \item Arshad (Male, DOB: 2/7/2025)
+\end{enumerate}
+
+\section*{Booking Details}
+\begin{description}[leftmargin=0cm, font=\normalfont]
+  \item[Seats:] A1
+  \item[Total Paid:] ₹45000
+  \item[Status:] Confirmed
+  \item[Booking Date:] 27/7/2025
+\end{description}
+
+\vspace{1cm}
+\begin{center}
+  \color{accentpurple}\small Thank you for choosing Aero-Vision!
+\end{center}
+
+\end{document}

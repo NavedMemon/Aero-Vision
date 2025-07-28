@@ -1,0 +1,364 @@
+ .ticketContainer {
+     max-height: 287mm;
+     /* A4 height minus margins */
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     width: min(95vw, 190mm);
+     background: #FFFFFF;
+     border: 2px solid transparent;
+     border-image: linear-gradient(135deg, #1E3A8A, #7C3AED) 1;
+     border-radius: 12px;
+     box-shadow: 0 10px 30px rgba(30, 58, 138, 0.2);
+     overflow: hidden;
+     margin: 0 auto;
+     animation: fadeIn 1s ease-in-out;
+     z-index: 1010;
+ }
+
+ .ticket {
+     width: 100%;
+     box-sizing: border-box;
+     padding: 10mm;
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+ }
+
+ /* Fade-in animation */
+ @keyframes fadeIn {
+     from {
+         opacity: 0;
+         transform: translateY(20px);
+     }
+
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
+
+ /* Error message */
+ .error {
+     text-align: center;
+     color: #DC2626;
+     font-family: "Inter", sans-serif;
+     font-size: 16px;
+     padding: 15px;
+     background: #FEF2F2;
+     border-radius: 8px;
+     margin: 10px 0;
+     box-shadow: 0 0 10px rgba(220, 38, 38, 0.2);
+ }
+
+ /* Header with airline name */
+ .header {
+     background: linear-gradient(90deg, #1E3A8A, #7C3AED);
+     color: #FFFFFF;
+     text-align: center;
+     padding: 10px;
+     border-radius: 8px 8px 0 0;
+     box-shadow: 0 0 20px rgba(124, 58, 237, 0.7);
+     animation: pulseGlow 2s infinite alternate ease-in-out;
+     width: 100%;
+     z-index: 1030;
+ }
+
+ @keyframes pulseGlow {
+     from {
+         box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+     }
+
+     to {
+         box-shadow: 0 0 25px rgba(124, 58, 237, 0.8);
+     }
+ }
+
+ .header h1 {
+     font-family: "Cinzel", serif;
+     font-size: clamp(20px, 5vw, 24px);
+     margin: 0;
+     letter-spacing: 1px;
+     text-transform: uppercase;
+ }
+
+ /* Logo styling */
+ .logo {
+     text-align: center;
+     margin: 10px 0;
+     z-index: 1030;
+ }
+
+ .logo img {
+     width: 90px;
+     filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.5));
+     animation: floatGlow 3s infinite ease-in-out;
+ }
+
+ @keyframes floatGlow {
+
+     0%,
+     100% {
+         transform: translateY(0);
+         filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.5));
+     }
+
+     50% {
+         transform: translateY(-5px);
+         filter: drop-shadow(0 0 15px rgba(212, 160, 23, 0.7));
+     }
+ }
+
+ /* QR code styling */
+ .qr {
+     text-align: center;
+     margin: 10px 0;
+     z-index: 1030;
+ }
+
+ .qr img {
+     width: 80px;
+     height: 80px;
+     border: 3px solid #06B6D4;
+     border-radius: 8px;
+     box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+     animation: qrGlow 1.8s infinite alternate ease-in-out;
+ }
+
+ @keyframes qrGlow {
+     from {
+         box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+     }
+
+     to {
+         box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+     }
+ }
+
+ .qr p {
+     font-family: "Inter", sans-serif;
+     font-size: 12px;
+     color: #1E3A8A;
+     margin-top: 5px;
+     letter-spacing: 0.5px;
+ }
+
+ /* Section headers */
+ .section h2 {
+     font-family: "Cinzel", serif;
+     font-size: 16px;
+     color: #1E3A8A;
+     text-align: center;
+     margin: 10px 0 8px;
+     border-bottom: 1px dashed #7C3AED;
+     padding-bottom: 5px;
+     z-index: 1030;
+ }
+
+ /* Table styling */
+ .table {
+     width: 100%;
+     border-collapse: collapse;
+     font-family: "Inter", sans-serif;
+     font-size: 12px;
+     background: #F9FAFB;
+     border-radius: 8px;
+     overflow: hidden;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+     margin-bottom: 10px;
+     z-index: 1030;
+ }
+
+ .table tr:nth-child(odd) {
+     background-color: #F9FAFB;
+ }
+
+ .table tr:nth-child(even) {
+     background-color: #E2E8F0;
+ }
+
+ .table td {
+     padding: 8px;
+     border-bottom: 1px solid #D1D5DB;
+ }
+
+ .table td:first-child {
+     font-weight: 600;
+     width: 40%;
+     text-align: right;
+     padding-right: 10px;
+     color: #1E3A8A;
+ }
+
+ .table td:last-child {
+     color: #374151;
+ }
+
+ /* Footer styling */
+ .footer {
+     text-align: center;
+     color: #D4A017;
+     font-family: "Cinzel", serif;
+     font-size: 12px;
+     margin: 10px 0;
+     text-shadow: 0 0 8px rgba(212, 160, 23, 0.5);
+     z-index: 1030;
+ }
+
+ /* Stub styling */
+ .stub {
+     width: 100%;
+     background: #7C3AED;
+     color: #FFFFFF;
+     padding: 8px;
+     text-align: center;
+     border-top: 4px dotted #FFFFFF;
+     z-index: 1030;
+ }
+
+ .stub p {
+     font-family: "Inter", sans-serif;
+     font-size: 10px;
+     margin: 5px 0;
+     letter-spacing: 0.5px;
+ }
+
+ /* Fixed button container */
+ .buttonContainer {
+     position: sticky;
+     bottom: 0;
+     background: #FFFFFF;
+     padding: 10px;
+     display: flex;
+     justify-content: center;
+     gap: 15px;
+     width: 100%;
+     border-top: 1px solid #E5E7EB;
+     box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+     z-index: 1040;
+ }
+
+ /* Download button */
+ .downloadBtn {
+     background: linear-gradient(45deg, #1E3A8A, #7C3AED);
+     color: #FFFFFF;
+     border: none;
+     border-radius: 20px;
+     font-family: "Cinzel", serif;
+     font-size: 14px;
+     padding: 8px 20px;
+     cursor: pointer;
+     box-shadow: 0 0 10px rgba(124, 58, 237, 0.6);
+     transition: all 0.3s ease;
+     z-index: 1050;
+ }
+
+ .downloadBtn:hover {
+     background: linear-gradient(45deg, #7C3AED, #1E3A8A);
+     box-shadow: 0 0 15px rgba(124, 58, 237, 0.8);
+     transform: translateY(-2px);
+ }
+
+ /* Close button */
+ .closeBtn {
+     background: linear-gradient(45deg, #D4A017, #FBBF24);
+     color: #FFFFFF;
+     border: none;
+     border-radius: 20px;
+     font-family: "Cinzel", serif;
+     font-size: 14px;
+     padding: 8px 20px;
+     cursor: pointer;
+     box-shadow: 0 0 10px rgba(212, 160, 23, 0.6);
+     transition: all 0.3s ease;
+     z-index: 1050;
+ }
+
+ .closeBtn:hover {
+     background: linear-gradient(45deg, #FBBF24, #D4A017);
+     box-shadow: 0 0 15px rgba(212, 160, 23, 0.8);
+     transform: translateY(-2px);
+ }
+
+ /* PDF-specific styling */
+ @media print {
+     .ticketContainer {
+         max-height: none;
+         height: auto;
+         border: none;
+         box-shadow: none;
+     }
+
+     .ticket {
+         padding: 5mm;
+     }
+
+     .buttonContainer {
+         display: none;
+     }
+
+     .stub {
+         border-top: 4px dotted #FFFFFF;
+         border-right: none;
+     }
+ }
+
+ /* Responsive adjustments */
+ @media (max-width: 600px) {
+     .ticketContainer {
+         width: 95vw;
+     }
+
+     .ticket {
+         padding: 8mm;
+     }
+
+     .header h1 {
+         font-size: 18px;
+     }
+
+     .logo img {
+         width: 80px;
+     }
+
+     .qr img {
+         width: 70px;
+         height: 70px;
+     }
+
+     .section h2 {
+         font-size: 14px;
+     }
+
+     .table {
+         font-size: 11px;
+     }
+
+     .table td {
+         padding: 6px;
+     }
+
+     .footer {
+         font-size: 11px;
+     }
+
+     .stub {
+         padding: 6px;
+     }
+
+     .stub p {
+         font-size: 9px;
+     }
+
+     .buttonContainer {
+         flex-direction: column;
+         gap: 10px;
+         padding: 8px;
+     }
+
+     .downloadBtn,
+     .closeBtn {
+         font-size: 12px;
+         padding: 8px 20px;
+     }
+ }
