@@ -1,0 +1,99 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.7.28)  28 JUL 2025 03:40
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./test-ticket.tex
+(test-ticket.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-04>
+(C:\Program Files\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(C:\Program Files\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count187
+\c@section=\count188
+\c@subsection=\count189
+\c@subsubsection=\count190
+\c@paragraph=\count191
+\c@subparagraph=\count192
+\c@figure=\count193
+\c@table=\count194
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+(C:\Program Files\MiKTeX\tex/latex/base\inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+)
+(C:\Program Files\MiKTeX\tex/latex/psnfss\helvet.sty
+Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
+
+(C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks19
+))
+(C:\Users\mgshe\AppData\Roaming\MiKTeX\tex/latex/cinzel\cinzel.sty
+Package: cinzel 2022/09/29 (Bob Tennent) Supports Cinzel and CinzelDecorative f
+or all LaTeX engines.
+
+(C:\Program Files\MiKTeX\tex/generic/iftex\ifxetex.sty
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+
+(C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+(C:\Program Files\MiKTeX\tex/generic/iftex\ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+)
+(C:\Program Files\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(C:\Program Files\MiKTeX\tex/generic/xkeyval\xkeyval.tex
+(C:\Program Files\MiKTeX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks20
+\XKV@tempa@toks=\toks21
+)
+\XKV@depth=\count195
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(C:\Program Files\MiKTeX\tex/latex/base\textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+(C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(C:\Program Files\MiKTeX\tex/latex/fontaxes\fontaxes.sty
+Package: fontaxes 2025-05-24 v2.0.1 Font selection axes (deprecated)
+
+(C:\Program Files\MiKTeX\tex/latex/figureversions\figureversions.sty
+
+LaTeX Warning: You have requested release `2024-11-01' of LaTeX,
+               but only release `2023-11-01' is available.
+
+Package: figureversions 2025-04-29 v1.0.1 Figure versions
+! Undefined control sequence.
+<argument> \prop_gput_if_not_in:NnV 
+                                    \g__figureversions_figurestyles_proporti...
+l.435 ...figureversions_text_str { OsF  } { TOsF }
+                                                  
+? 
+! Emergency stop.
+<argument> \prop_gput_if_not_in:NnV 
+                                    \g__figureversions_figurestyles_proporti...
+l.435 ...figureversions_text_str { OsF  } { TOsF }
+                                                  
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 1061 strings out of 474486
+ 17236 string characters out of 5753570
+ 1924542 words of memory out of 5000000
+ 23390 multiletter control sequences out of 15000+600000
+ 558069 words of font info for 36 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 62i,0n,70p,185b,36s stack positions out of 10000i,1000n,20000p,200000b,200000s
+!  ==> Fatal error occurred, no output PDF file produced!

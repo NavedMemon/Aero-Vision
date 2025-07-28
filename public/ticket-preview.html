@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aero-Vision Ticket Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  </head>
+  <body
+    class="bg-gray-900 flex items-center justify-center min-h-screen font-sans"
+  >
+    <div
+      id="ticket"
+      class="relative bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')] bg-[#FDF5E6] w-full max-w-md p-5 rounded-xl shadow-2xl transform transition-all duration-700 hover:scale-105 opacity-0 animate-slideIn"
+    >
+      <!-- Ornate Border -->
+      <div
+        class="absolute inset-0 border-4 border-[#2563EB] rounded-xl pointer-events-none"
+        style="
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+          background: linear-gradient(
+            45deg,
+            rgba(0, 255, 255, 0.1),
+            transparent
+          );
+        "
+      ></div>
+      <!-- Header -->
+      <div
+        class="relative bg-gradient-to-r from-[#2563EB] to-[#8B5CF6] text-white text-center py-3 rounded-t-lg z-10 overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 opacity-20"
+          style="
+            background: radial-gradient(circle, #00ffff 0%, transparent 70%);
+          "
+        ></div>
+        <h1
+          class="text-lg font-bold relative"
+          style="font-family: 'Cinzel', serif; text-shadow: 0 0 5px #d4a017"
+        >
+          Aero-Vision Flight Ticket #<span id="ticket-number">1</span>
+        </h1>
+      </div>
+      <!-- Logo -->
+      <div class="flex justify-center py-3 relative">
+        <img
+          src="/uploads/aero-vision-logo.png"
+          alt="Aero-Vision Logo"
+          class="w-16 h-16 animate-pulse"
+          id="logo"
+          onerror="this.src='https://via.placeholder.com/64?text=Logo';"
+        />
+      </div>
+      <!-- QR Code -->
+      <div class="flex justify-center relative">
+        <div
+          id="qrcode"
+          class="p-2 bg-[#8B5CF6]/10 rounded border-2 border-[#00FFFF] animate-glow"
+        ></div>
+        <div
+          class="absolute w-24 h-24 rounded-full border-2 border-dashed border-[#00FFFF] opacity-30 animate-spin-slow"
+        ></div>
+      </div>
+      <!-- Details -->
+      <div class="grid grid-cols-2 gap-3 p-3 text-xs">
+        <div class="bg-[#FDF5E6]/80 p-2 rounded">
+          <h2
+            class="font-bold text-[#2563EB]"
+            style="font-family: 'Cinzel', serif"
+          >
+            Flight Details
+          </h2>
+          <p>
+            <strong>Flight Number:</strong> <span id="flight-number"></span>
+          </p>
+          <p><strong>Airline:</strong> <span id="airline"></span></p>
+          <p><strong>From:</strong> <span id="from"></span></p>
+          <p><strong>To:</strong> <span id="to"></span></p>
+          <p><strong>Departure:</strong> <span id="departure"></span></p>
+          <p><strong>Gate:</strong> <span id="gate"></span></p>
+          <p><strong>Baggage Allowance:</strong> <span id="baggage"></span></p>
+        </div>
+        <div class="bg-[#FDF5E6]/80 p-2 rounded">
+          <h2
+            class="font-bold text-[#2563EB]"
+            style="font-family: 'Cinzel', serif"
+          >
+            Passenger Details
+          </h2>
+          <div id="passengers"></div>
+        </div>
+        <div class="bg-[#FDF5E6]/80 p-2 rounded col-span-2">
+          <h2
+            class="font-bold text-[#2563EB]"
+            style="font-family: 'Cinzel', serif"
+          >
+            Booking Details
+          </h2>
+          <p><strong>Seats:</strong> <span id="seats"></span></p>
+          <p><strong>Total Paid:</strong> <span id="total-paid"></span></p>
+          <p><strong>Status:</strong> <span id="status"></span></p>
+          <p><strong>Booking Date:</strong> <span id="booking-date"></span></p>
+        </div>
+      </div>
+      <!-- Footer Message -->
+      <div
+        class="text-center text-[#8B5CF6] text-xs"
+        style="font-family: 'Cinzel', serif; text-shadow: 0 0 3px #d4a017"
+      >
+        Embark on a Timeless Journey with Aero-Vision!
+      </div>
+    </div>
+    <script>
+      // Fetch ticket data
+      async function loadTicketData() {
+        try {
+          const response = await fetch(
+            "/api/passenger/bookings/preview?flightId=6884aa00c63e498cd472f1e1"
+          );
+          const ticketData = await response.json();
+          if (ticketData.error) {
+            console.error("Error fetching ticket data:", ticketData.error);
+            return;
+          }
+
+          // Populate ticket
+          document.getElementById("ticket-number").textContent =
+            ticketData.ticketNumber;
+          document.getElementById("flight-number").textContent =
+            ticketData.flight.flightNumber;
+          document.getElementById("airline").textContent =
+            ticketData.flight.airline;
+          document.getElementById("from").textContent = ticketData.flight.from;
+          document.getElementById("to").textContent = ticketData.flight.to;
+          document.getElementById("departure").textContent =
+            ticketData.flight.departure;
+          document.getElementById("gate").textContent = ticketData.flight.gate;
+          document.getElementById("baggage").textContent =
+            ticketData.flight.baggage;
+          document.getElementById("passengers").innerHTML =
+            ticketData.passengers
+              .map(
+                (p) => `
+            <p><strong>Name:</strong> ${p.name}</p>
+            <p><strong>DOB:</strong> ${p.dob}</p>
+            <p><strong>Gender:</strong> ${p.gender}</p>
+          `
+              )
+              .join("");
+          document.getElementById("seats").textContent =
+            ticketData.booking.seats.join(", ");
+          document.getElementById(
+            "total-paid"
+          ).textContent = `Rs.${ticketData.booking.totalPaid}`;
+          document.getElementById("status").textContent =
+            ticketData.booking.status;
+          document.getElementById("booking-date").textContent =
+            ticketData.booking.bookingDate;
+
+          // Generate QR code
+          new QRCode(document.getElementById("qrcode"), {
+            text: ticketData.qrCode,
+            width: 80,
+            height: 80,
+            colorDark: "#2563EB",
+            colorLight: "#E9D5FF",
+          });
+        } catch (error) {
+          console.error("Failed to load ticket data:", error);
+        }
+      }
+
+      // Trigger slide-in animation and load data
+      document.getElementById("ticket").style.opacity = "1";
+      loadTicketData();
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-100px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes glow {
+        0% {
+          box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+        100% {
+          box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+      }
+      @keyframes spin-slow {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .animate-slideIn {
+        animation: slideIn 0.8s ease-out forwards;
+      }
+      .animate-glow {
+        animation: glow 2s ease-in-out infinite;
+      }
+      .animate-spin-slow {
+        animation: spin-slow 10s linear infinite;
+      }
+      .animate-pulse {
+        animation: pulse 3s ease-in-out infinite;
+      }
+    </style>
+  </body>
+</html>

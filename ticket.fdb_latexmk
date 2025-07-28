@@ -1,0 +1,9 @@
+# Fdb version 4
+["pdflatex"] 0 "ticket.tex" "ticket.pdf" "ticket" 0 -1
+  "ticket.aux" 0 -1 0 "pdflatex"
+  "ticket.tex" 0 -1 0 ""
+  (generated)
+  "ticket.aux"
+  "ticket.log"
+  "ticket.pdf"
+  (rewritten before read)
