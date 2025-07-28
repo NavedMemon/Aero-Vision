@@ -1,0 +1,47 @@
+
+    \documentclass[a4paper,12pt]{article}
+    \usepackage{lmodern}
+    \usepackage{graphicx}
+    \usepackage{qrcode}
+    \usepackage{xcolor}
+    \usepackage{titlesec}
+    \usepackage{enumitem}
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhf{}
+    \cfoot{\thepage}
+    \begin{document}
+    \begin{center}
+      {\LARGE \textbf{Aero-Vision Flight Ticket}} \\
+      \vspace{0.5cm}
+      % Logo skipped: ENOENT: no such file or directory, access 'E:\Semester-9\Project\Aero-Vision\public\Uploads\aero-vision-logo.png'
+    \end{center}
+    \vspace{0.5cm}
+    \qrcode{https://example.com/booking/6885ecc27932e3bda733a96a}
+    \section*{Flight Details}
+    \begin{itemize}
+      \item \textbf{Flight Number}: \texttt{A1ZEX}
+      \item \textbf{Airline}: \texttt{Etihad}
+      \item \textbf{From}: \texttt{Ahemedabad}
+      \item \textbf{To}: \texttt{Iran}
+      \item \textbf{Departure}: \texttt{27/7/2025, 8:45:00 pm}
+      \item \textbf{Gate}: \texttt{Gate1,A5}
+      \item \textbf{Baggage Allowance}: \texttt{25kg}
+    \end{itemize}
+    \section*{Passenger Details}
+    \begin{itemize}
+      
+        \item \textbf{Name}: \texttt{Arshad}
+        \item \textbf{DOB}: \texttt{4/1/2009}
+        \item \textbf{Gender}: \texttt{Male}
+      
+    \end{itemize}
+    \section*{Booking Details}
+    \begin{itemize}
+      \item \textbf{Seats}: \texttt{A2}
+      \item \textbf{Total Paid}: ₹24999.98
+      \item \textbf{Status}: \texttt{Confirmed}
+      \item \textbf{Booking Date}: \texttt{27/7/2025, 2:39:22 pm}
+    \end{itemize}
+    \end{document}
+    

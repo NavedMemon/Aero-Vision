@@ -1,7 +1,7 @@
 // import { NextResponse } from "next/server";
 // import jwt from "jsonwebtoken";
-// import connectDB from "@/lib/db"; // Default import
-// import Gate from "@/model/Gate";
+// import connectDB from "@/lib/db";
+// import Airline from "@/model/Airline";
 // import Admin from "@/model/Admin";
 
 // export async function GET(req) {
@@ -24,10 +24,13 @@
 //       );
 //     }
 
-//     const gates = await Gate.find()
-//       .populate("createdBy", "email")
-//       .sort({ createdAt: -1 });
-//     return NextResponse.json({ gates }, { status: 200 });
+//     const admin = await Admin.findById(decoded.id);
+//     if (!admin) {
+//       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
+//     }
+
+//     const airlines = await Airline.find().sort({ name: 1 });
+//     return NextResponse.json({ success: true, airlines }, { status: 200 });
 //   } catch (error) {
 //     console.error("GET - Error:", error.message);
 //     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -36,7 +39,7 @@
 
 // export async function POST(req) {
 //   await connectDB();
-//   const { gateNumber } = await req.json();
+//   const { name, logo } = await req.json();
 //   const token = req.cookies.get("token")?.value;
 
 //   if (!token) {
@@ -57,36 +60,31 @@
 
 //     const admin = await Admin.findById(decoded.id);
 //     if (!admin) {
-//       console.log("POST - Admin not found for id:", decoded.id); // Debug log
 //       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
 //     }
 
-//     if (
-//       !gateNumber ||
-//       typeof gateNumber !== "string" ||
-//       gateNumber.trim() === ""
-//     ) {
+//     if (!name || !logo) {
 //       return NextResponse.json(
-//         { error: "Gate number is required" },
+//         { error: "Name and logo are required" },
 //         { status: 400 }
 //       );
 //     }
 
-//     const existingGate = await Gate.findOne({ gateNumber });
-//     if (existingGate) {
+//     const existingAirline = await Airline.findOne({ name });
+//     if (existingAirline) {
 //       return NextResponse.json(
-//         { error: "Gate number already exists" },
+//         { error: "Airline name already exists" },
 //         { status: 400 }
 //       );
 //     }
 
-//     const gate = new Gate({
-//       gateNumber: gateNumber.trim(),
-//       createdBy: admin._id,
+//     const airline = new Airline({
+//       name: name.trim(),
+//       logo: logo.trim(),
 //     });
-//     await gate.save();
+//     await airline.save();
 
-//     return NextResponse.json({ success: true, gate }, { status: 201 });
+//     return NextResponse.json({ success: true, airline }, { status: 201 });
 //   } catch (error) {
 //     if (error.name === "JsonWebTokenError") {
 //       return NextResponse.json({ error: "Invalid token" }, { status: 401 });
@@ -96,123 +94,12 @@
 //   }
 // }
 
-// export async function PUT(req) {
-//   await connectDB();
-//   const { gateId, gateNumber } = await req.json();
-//   const token = req.cookies.get("token")?.value;
-
-//   if (!token) {
-//     return NextResponse.json(
-//       { error: "Unauthorized: No token provided" },
-//       { status: 401 }
-//     );
-//   }
-
-//   try {
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     if (decoded.role !== "admin") {
-//       return NextResponse.json(
-//         { error: "Unauthorized: Admin access required" },
-//         { status: 403 }
-//       );
-//     }
-
-//     const admin = await Admin.findById(decoded.id);
-//     if (!admin) {
-//       console.log("PUT - Admin not found for id:", decoded.id); // Debug log
-//       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
-//     }
-
-//     if (
-//       !gateId ||
-//       !gateNumber ||
-//       typeof gateNumber !== "string" ||
-//       gateNumber.trim() === ""
-//     ) {
-//       return NextResponse.json(
-//         { error: "Gate ID and number are required" },
-//         { status: 400 }
-//       );
-//     }
-
-//     const existingGate = await Gate.findOne({
-//       gateNumber,
-//       _id: { $ne: gateId },
-//     });
-//     if (existingGate) {
-//       return NextResponse.json(
-//         { error: "Gate number already exists" },
-//         { status: 400 }
-//       );
-//     }
-
-//     const gate = await Gate.findByIdAndUpdate(
-//       gateId,
-//       { gateNumber: gateNumber.trim() },
-//       { new: true }
-//     );
-//     if (!gate) {
-//       return NextResponse.json({ error: "Gate not found" }, { status: 404 });
-//     }
-
-//     return NextResponse.json({ success: true, gate }, { status: 200 });
-//   } catch (error) {
-//     console.error("PUT - Error:", error.message);
-//     return NextResponse.json({ error: "Server error" }, { status: 500 });
-//   }
-// }
-
-// export async function DELETE(req) {
-//   await connectDB();
-//   const { gateId } = await req.json();
-//   const token = req.cookies.get("token")?.value;
-
-//   if (!token) {
-//     return NextResponse.json(
-//       { error: "Unauthorized: No token provided" },
-//       { status: 401 }
-//     );
-//   }
-
-//   try {
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     if (decoded.role !== "admin") {
-//       return NextResponse.json(
-//         { error: "Unauthorized: Admin access required" },
-//         { status: 403 }
-//       );
-//     }
-
-//     const admin = await Admin.findById(decoded.id);
-//     if (!admin) {
-//       console.log("DELETE - Admin not found for id:", decoded.id); // Debug log
-//       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
-//     }
-
-//     if (!gateId) {
-//       return NextResponse.json(
-//         { error: "Gate ID is required" },
-//         { status: 400 }
-//       );
-//     }
-
-//     const gate = await Gate.findByIdAndDelete(gateId);
-//     if (!gate) {
-//       return NextResponse.json({ error: "Gate not found" }, { status: 404 });
-//     }
-
-//     return NextResponse.json({ success: true }, { status: 200 });
-//   } catch (error) {
-//     console.error("DELETE - Error:", error.message);
-//     return NextResponse.json({ error: "Server error" }, { status: 500 });
-//   }
-// }
-
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import connectDB from "@/lib/db";
-import Gate from "@/model/Gate";
+import Airline from "@/model/Airline";
 import Admin from "@/model/Admin";
+import mongoose from "mongoose";
 
 export async function GET(req) {
   await connectDB();
@@ -240,10 +127,8 @@ export async function GET(req) {
       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    const gates = await Gate.find()
-      .populate("createdBy", "email")
-      .sort({ createdAt: -1 });
-    return NextResponse.json({ success: true, gates }, { status: 200 });
+    const airlines = await Airline.find().sort({ createdAt: -1 });
+    return NextResponse.json({ success: true, airlines }, { status: 200 });
   } catch (error) {
     console.error("GET - Error:", error.message);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -252,7 +137,7 @@ export async function GET(req) {
 
 export async function POST(req) {
   await connectDB();
-  const { gateNumber } = await req.json();
+  const { name, logo } = await req.json();
   const token = req.cookies.get("token")?.value;
 
   if (!token) {
@@ -277,36 +162,30 @@ export async function POST(req) {
       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    if (
-      !gateNumber ||
-      typeof gateNumber !== "string" ||
-      gateNumber.trim() === ""
-    ) {
+    if (!name?.trim() || !logo?.trim()) {
       return NextResponse.json(
-        { error: "Gate number is required" },
+        { error: "Name and logo are required" },
         { status: 400 }
       );
     }
 
-    const existingGate = await Gate.findOne({ gateNumber });
-    if (existingGate) {
+    const existingAirline = await Airline.findOne({ name: name.trim() });
+    if (existingAirline) {
       return NextResponse.json(
-        { error: "Gate number already exists" },
+        { error: "Airline name already exists" },
         { status: 400 }
       );
     }
 
-    const gate = new Gate({
-      gateNumber: gateNumber.trim(),
+    const airline = new Airline({
+      name: name.trim(),
+      logo: logo.trim(),
       createdBy: admin._id,
     });
-    await gate.save();
+    await airline.save();
 
-    return NextResponse.json({ success: true, gate }, { status: 201 });
+    return NextResponse.json({ success: true, airline }, { status: 201 });
   } catch (error) {
-    if (error.name === "JsonWebTokenError") {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
     console.error("POST - Error:", error.message);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
@@ -314,7 +193,7 @@ export async function POST(req) {
 
 export async function PUT(req) {
   await connectDB();
-  const { gateId, gateNumber } = await req.json();
+  const { airlineId, name, logo } = await req.json();
   const token = req.cookies.get("token")?.value;
 
   if (!token) {
@@ -339,39 +218,44 @@ export async function PUT(req) {
       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    if (
-      !gateId ||
-      !gateNumber ||
-      typeof gateNumber !== "string" ||
-      gateNumber.trim() === ""
-    ) {
+    if (!airlineId || !name?.trim() || !logo?.trim()) {
       return NextResponse.json(
-        { error: "Gate ID and number are required" },
+        { error: "All fields are required" },
         { status: 400 }
       );
     }
 
-    const existingGate = await Gate.findOne({
-      gateNumber,
-      _id: { $ne: gateId },
+    if (!mongoose.isValidObjectId(airlineId)) {
+      return NextResponse.json(
+        { error: "Invalid airline ID" },
+        { status: 400 }
+      );
+    }
+
+    const existingAirline = await Airline.findOne({
+      name: name.trim(),
+      _id: { $ne: airlineId },
     });
-    if (existingGate) {
+    if (existingAirline) {
       return NextResponse.json(
-        { error: "Gate number already exists" },
+        { error: "Airline name already exists" },
         { status: 400 }
       );
     }
 
-    const gate = await Gate.findByIdAndUpdate(
-      gateId,
-      { gateNumber: gateNumber.trim() },
+    const airline = await Airline.findByIdAndUpdate(
+      airlineId,
+      {
+        name: name.trim(),
+        logo: logo.trim(),
+      },
       { new: true }
     );
-    if (!gate) {
-      return NextResponse.json({ error: "Gate not found" }, { status: 404 });
+    if (!airline) {
+      return NextResponse.json({ error: "Airline not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ success: true, gate }, { status: 200 });
+    return NextResponse.json({ success: true, airline }, { status: 200 });
   } catch (error) {
     console.error("PUT - Error:", error.message);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -380,7 +264,7 @@ export async function PUT(req) {
 
 export async function DELETE(req) {
   await connectDB();
-  const { gateId } = await req.json();
+  const { airlineId } = await req.json();
   const token = req.cookies.get("token")?.value;
 
   if (!token) {
@@ -405,16 +289,23 @@ export async function DELETE(req) {
       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    if (!gateId) {
+    if (!airlineId) {
       return NextResponse.json(
-        { error: "Gate ID is required" },
+        { error: "Airline ID is required" },
         { status: 400 }
       );
     }
 
-    const gate = await Gate.findByIdAndDelete(gateId);
-    if (!gate) {
-      return NextResponse.json({ error: "Gate not found" }, { status: 404 });
+    if (!mongoose.isValidObjectId(airlineId)) {
+      return NextResponse.json(
+        { error: "Invalid airline ID" },
+        { status: 400 }
+      );
+    }
+
+    const airline = await Airline.findByIdAndDelete(airlineId);
+    if (!airline) {
+      return NextResponse.json({ error: "Airline not found" }, { status: 404 });
     }
 
     return NextResponse.json({ success: true }, { status: 200 });

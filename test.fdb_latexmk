@@ -1,0 +1,20 @@
+# Fdb version 4
+["pdflatex"] 1753640240.40952 "test.tex" "test.pdf" "test" 1753640240.96438 0
+  "C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc" 1256929440 2327 9d6df24f9c4f7368395224341a95523a ""
+  "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmr12.tfm" 1136765053 1288 655e228510b4c2a1abe905c368440826 ""
+  "C:/Program Files/MiKTeX/fonts/tfm/public/lm/rm-lmr12.tfm" 1256929440 11888 6841b91e46b65cf41a49b160e6e74130 ""
+  "C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb" 1256929440 113634 9384aebdf26f9881e046a4b5574566db ""
+  "C:/Program Files/MiKTeX/tex/latex/base/article.cls" 1705273579 20144 147463a6a579f4597269ef9565205cfe ""
+  "C:/Program Files/MiKTeX/tex/latex/base/size12.clo" 1705273578 8449 f07039d8e4e89f21078d9b5137579bfc ""
+  "C:/Program Files/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1704400941 30006 57b07afb710ee2f649c65cfbafda39c1 ""
+  "C:/Program Files/MiKTeX/tex/latex/lm/lmodern.sty" 1430474546 1608 b00724785a9e9c599e5181bb8729160b ""
+  "C:/Program Files/MiKTeX/tex/latex/lm/ot1lmr.fd" 1430474546 1882 28c08db1407ebff35a658fd141753d16 ""
+  "C:/Users/mgshe/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1753628307 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
+  "C:/Users/mgshe/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1753639219 24215231 b51b0daffd6afe00e86ce343b365d431 ""
+  "test.aux" 1753640240 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "test.tex" 1753640224 99 7a6b6f096291456eb02ade9f1e9bbf07 ""
+  (generated)
+  "test.aux"
+  "test.log"
+  "test.pdf"
+  (rewritten before read)
