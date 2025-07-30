@@ -66,6 +66,7 @@ import {
   FaTasks,
   FaDoorOpen,
 } from "react-icons/fa";
+import { FcLeave } from "react-icons/fc";
 
 const AdminSidebar = () => {
   const router = useRouter();
@@ -108,6 +109,12 @@ const AdminSidebar = () => {
         </Link>
         <Link href="/dashboard/admin/passengers" className="admin-nav-link">
           <FaUsers /> Passengers
+        </Link>
+        <Link
+          href="/dashboard/admin/managecomplaints"
+          className="admin-nav-link"
+        >
+          <FcLeave color="black" /> Staff Leave
         </Link>
         <Link
           href="/dashboard/admin/managecomplaints"

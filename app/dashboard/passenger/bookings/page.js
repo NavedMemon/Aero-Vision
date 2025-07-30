@@ -1656,7 +1656,6 @@
 // };
 
 // export default BookingsPage;
-
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../Sidebar";
@@ -1665,26 +1664,106 @@ import "../passenger.css";
 import { useSearchParams, useRouter } from "next/navigation";
 import { FaPlane } from "react-icons/fa";
 import dynamic from "next/dynamic";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+
+// Initialize Stripe with your publishable key
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 // Dynamically import Ticket component with SSR disabled
 const Ticket = dynamic(() => import("@/components/Ticket"), { ssr: false });
 
 const allSeats = Array.from({ length: 30 }, (_, i) => `A${i + 1}`);
 
+const PaymentForm = ({ flightData, selectedSeats, formData, onSuccess, onCancel }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [paymentError, setPaymentError] = useState("");
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
+  const handlePaymentSubmit = async (e) => {
+    e.preventDefault();
+    setPaymentError("");
+    setPaymentLoading(true);
+
+    try {
+      // Create Payment Intent
+      const response = await fetch("/api/stripe/payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: flightData.price * selectedSeats.length,
+          currency: "inr",
+          flightId: flightData.flightId,
+          seats: selectedSeats,
+          passengers: formData,
+        }),
+      });
+      const { clientSecret, error } = await response.json();
+      if (error) throw new Error(error);
+
+      // Confirm payment
+      const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      });
+
+      if (confirmError) {
+        setPaymentError(confirmError.message);
+        setPaymentLoading(false);
+        return;
+      }
+
+      if (paymentIntent.status === "succeeded") {
+        await onSuccess(paymentIntent.id);
+      } else {
+        setPaymentError("Payment failed. Please try again.");
+      }
+    } catch (err) {
+      setPaymentError(err.message || "Payment failed. Please try again.");
+    } finally {
+      setPaymentLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handlePaymentSubmit} className="payment-form">
+      <h3>💳 Payment Details</h3>
+      <div className="stripe-card-element">
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#333",
+                "::placeholder": { color: "#aaa" },
+              },
+              invalid: { color: "#dc3545" },
+            },
+          }}
+        />
+      </div>
+      {paymentError && <p className="error-text">{paymentError}</p>}
+      <button type="submit" className="submit-booking-btn" disabled={paymentLoading}>
+        {paymentLoading ? "Processing..." : "Confirm Payment"}
+      </button>
+      <button type="button" className="danger" onClick={onCancel}>
+        Cancel
+      </button>
+    </form>
+  );
+};
+
 const BookingsPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const ticketRef = useRef(); // Ref for hidden Ticket component
+  const ticketRef = useRef();
   const [flightData, setFlightData] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [formData, setFormData] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [bookedSeats, setBookedSeats] = useState([]);
-  const [paymentDetails, setPaymentDetails] = useState({
-    cardNumber: "",
-    expiry: "",
-    cvv: "",
-  });
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showTicket, setShowTicket] = useState(null);
   const [cancelPopup, setCancelPopup] = useState(null);
@@ -1716,22 +1795,16 @@ const BookingsPage = () => {
           throw new Error(data.error || "Failed to fetch bookings");
         }
         const data = await response.json();
-        console.log(
-          "Fetched bookings:",
-          JSON.stringify(data.bookings, null, 2)
-        );
+        console.log("Fetched bookings:", JSON.stringify(data.bookings, null, 2));
         setBookings(data.bookings);
 
         if (searchParams.get("flightNumber")) {
           const flightId = searchParams.get("flightId");
-          const seatsResponse = await fetch(
-            `/api/passenger/bookings/seats/${flightId}`,
-            {
-              method: "GET",
-              headers: { Authorization: `Bearer ${token}` },
-              credentials: "include",
-            }
-          );
+          const seatsResponse = await fetch(`/api/passenger/bookings/seats/${flightId}`, {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+            credentials: "include",
+          });
           if (seatsResponse.ok) {
             const seatsData = await seatsResponse.json();
             setBookedSeats(seatsData.bookedSeats);
@@ -1761,19 +1834,11 @@ const BookingsPage = () => {
     const baggageAllowance = searchParams.get("baggageAllowance");
     const gate = searchParams.get("gate");
 
-    if (
-      flightId &&
-      flightNumber &&
-      airline &&
-      from &&
-      to &&
-      departure &&
-      price
-    ) {
+    if (flightId && flightNumber && airline && from && to && departure && price) {
       setFlightData({
         flightId,
         flightNumber,
-        airline,
+        airline: { name: airline }, // Adjusted for Ticket.js compatibility
         from,
         to,
         departure,
@@ -1810,11 +1875,6 @@ const BookingsPage = () => {
     });
   };
 
-  const handlePaymentChange = (e) => {
-    const { name, value } = e.target;
-    setPaymentDetails((prev) => ({ ...prev, [name]: value }));
-  };
-
   const toggleSeat = (seat) => {
     if (bookedSeats.includes(seat)) return;
     if (selectedSeats.includes(seat)) {
@@ -1845,14 +1905,6 @@ const BookingsPage = () => {
         return false;
       }
     }
-    if (
-      !paymentDetails.cardNumber ||
-      !paymentDetails.expiry ||
-      !paymentDetails.cvv
-    ) {
-      setError("Please fill all payment fields");
-      return false;
-    }
     return true;
   };
 
@@ -1860,7 +1912,10 @@ const BookingsPage = () => {
     e.preventDefault();
     setError("");
     if (!validateForm()) return;
+    setShowPaymentModal(true);
+  };
 
+  const handleConfirmBooking = async (paymentIntentId) => {
     try {
       const tokenResponse = await fetch("/api/get-token", {
         method: "GET",
@@ -1874,10 +1929,8 @@ const BookingsPage = () => {
       formDataToSend.append("flightId", flightData.flightId);
       formDataToSend.append("seats", JSON.stringify(selectedSeats));
       formDataToSend.append("passengers", JSON.stringify(formData));
-      formDataToSend.append(
-        "totalPrice",
-        flightData.price * selectedSeats.length
-      );
+      formDataToSend.append("totalPrice", flightData.price * selectedSeats.length);
+      formDataToSend.append("paymentIntentId", paymentIntentId);
       formData.forEach((passenger, index) => {
         formDataToSend.append(`document${index}`, passenger.document);
       });
@@ -1892,7 +1945,19 @@ const BookingsPage = () => {
         const data = await response.json();
         throw new Error(data.error || "Failed to create booking");
       }
-      setShowPaymentModal(true);
+      const data = await response.json();
+      alert("✅ Booking confirmed!");
+      setShowPaymentModal(false);
+      setFlightData(null);
+      setSelectedSeats([]);
+      setFormData([]);
+      router.push("/dashboard/passenger/bookings");
+      const bookingsResponse = await fetch("/api/passenger/bookings", {
+        headers: { Authorization: `Bearer ${token}` },
+        credentials: "include",
+      });
+      const bookingsData = await bookingsResponse.json();
+      setBookings(bookingsData.bookings);
     } catch (err) {
       setError(err.message || "Unable to create booking");
       console.error("Booking error:", err);
@@ -1959,17 +2024,7 @@ const BookingsPage = () => {
       }
       const data = await response.json();
       console.log("Ticket data received:", JSON.stringify(data, null, 2));
-      const fixedBooking = {
-        ...data.booking,
-        flight: {
-          ...data.booking.flight,
-          gate:
-            data.booking.flight.gate?.gateNumber ||
-            data.booking.flight.gate ||
-            "N/A",
-        },
-      };
-      setShowTicket({ ...fixedBooking, qrCode: data.qrCode });
+      setShowTicket({ ...data.booking, qrCode: data.qrCode });
     } catch (error) {
       console.error("Error fetching ticket:", error);
       setError("Failed to load ticket: " + error.message);
@@ -1994,9 +2049,7 @@ const BookingsPage = () => {
       console.log("Generating PDF for ticket element:", element);
       const opt = {
         margin: [5, 5, 5, 5],
-        filename: `ticket_${showTicket?.flight?.flightNumber || "unknown"}_${
-          showTicket?._id || "unknown"
-        }.pdf`,
+        filename: `ticket_${showTicket?.flight?.flightNumber || "unknown"}_${showTicket?._id || "unknown"}.pdf`,
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: {
           scale: 2,
@@ -2031,21 +2084,16 @@ const BookingsPage = () => {
           ) : flightData ? (
             <>
               <div className="booking-form-section">
-                <h2 className="section-title">
-                  🛫 {flightData.airline} Booking
-                </h2>
+                <h2 className="section-title">🛫 {flightData.airline.name} Booking</h2>
                 <div className="flight-info-box">
                   <p>
                     <strong>Flight:</strong> {flightData.flightNumber} <br />
                     <strong>From:</strong> {flightData.from} <br />
                     <strong>To:</strong> {flightData.to} <br />
-                    <strong>Departure:</strong>{" "}
-                    {new Date(flightData.departure).toLocaleString()} <br />
+                    <strong>Departure:</strong> {new Date(flightData.departure).toLocaleString()} <br />
                     <strong>Price per Seat:</strong> ₹{flightData.price} <br />
-                    <strong>Total:</strong> ₹
-                    {flightData.price * selectedSeats.length} <br />
-                    <strong>Baggage:</strong> {flightData.baggageAllowance}{" "}
-                    <br />
+                    <strong>Total:</strong> ₹{flightData.price * selectedSeats.length} <br />
+                    <strong>Baggage:</strong> {flightData.baggageAllowance} <br />
                     <strong>Gate:</strong> {flightData.gate}
                   </p>
                 </div>
@@ -2059,29 +2107,19 @@ const BookingsPage = () => {
                           type="text"
                           placeholder="Full Name"
                           value={passenger.name}
-                          onChange={(e) =>
-                            handlePassengerChange(index, "name", e.target.value)
-                          }
+                          onChange={(e) => handlePassengerChange(index, "name", e.target.value)}
                           required
                         />
                         <input
                           type="date"
                           placeholder="Date of Birth"
                           value={passenger.dob}
-                          onChange={(e) =>
-                            handlePassengerChange(index, "dob", e.target.value)
-                          }
+                          onChange={(e) => handlePassengerChange(index, "dob", e.target.value)}
                           required
                         />
                         <select
                           value={passenger.gender}
-                          onChange={(e) =>
-                            handlePassengerChange(
-                              index,
-                              "gender",
-                              e.target.value
-                            )
-                          }
+                          onChange={(e) => handlePassengerChange(index, "gender", e.target.value)}
                           required
                         >
                           <option value="">Select Gender</option>
@@ -2089,47 +2127,16 @@ const BookingsPage = () => {
                           <option value="Female">Female</option>
                           <option value="Other">Other</option>
                         </select>
-                        <label className="upload-label">
-                          Upload ID (Aadhar/Passport):
-                        </label>
+                        <label className="upload-label">Upload ID (Aadhar/Passport):</label>
                         <input
                           type="file"
-                          onChange={(e) =>
-                            handleFileChange(index, e.target.files[0])
-                          }
+                          onChange={(e) => handleFileChange(index, e.target.files[0])}
                           required
                         />
                       </div>
                     ))}
-                    <div className="payment-form">
-                      <h3>💳 Payment Details (Fake)</h3>
-                      <input
-                        type="text"
-                        name="cardNumber"
-                        placeholder="Card Number (Any)"
-                        value={paymentDetails.cardNumber}
-                        onChange={handlePaymentChange}
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="expiry"
-                        placeholder="MM/YY (Any)"
-                        value={paymentDetails.expiry}
-                        onChange={handlePaymentChange}
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="cvv"
-                        placeholder="CVV (Any)"
-                        value={paymentDetails.cvv}
-                        onChange={handlePaymentChange}
-                        required
-                      />
-                    </div>
                     <button type="submit" className="submit-booking-btn">
-                      Confirm Booking
+                      Proceed to Payment
                     </button>
                   </form>
                 )}
@@ -2141,15 +2148,9 @@ const BookingsPage = () => {
                   {allSeats.map((seat) => (
                     <button
                       key={seat}
-                      className={`seat ${
-                        selectedSeats.includes(seat) ? "selected" : ""
-                      } ${bookedSeats.includes(seat) ? "booked" : ""}`}
+                      className={`seat ${selectedSeats.includes(seat) ? "selected" : ""} ${bookedSeats.includes(seat) ? "booked" : ""}`}
                       onClick={() => toggleSeat(seat)}
-                      disabled={
-                        bookedSeats.includes(seat) ||
-                        (selectedSeats.length >= 5 &&
-                          !selectedSeats.includes(seat))
-                      }
+                      disabled={bookedSeats.includes(seat) || (selectedSeats.length >= 5 && !selectedSeats.includes(seat))}
                     >
                       <FaPlane size={18} /> {seat}
                     </button>
@@ -2172,23 +2173,14 @@ const BookingsPage = () => {
                 {bookings.map((booking) => (
                   <div key={booking._id} className="booking-card">
                     <div className="booking-logo">
-                      <img
-                        src={booking.flight.airline.logo}
-                        alt={booking.flight.airline.name}
-                      />
+                      <img src={booking.flight.airline.logo} alt={booking.flight.airline.name} />
                     </div>
                     <div className="booking-info">
                       <h3>{booking.flight.airline.name}</h3>
                       <p>Flight: {booking.flight.flightNumber}</p>
-                      <p>
-                        {booking.flight.from} ✈ {booking.flight.to}
-                      </p>
-                      <p>
-                        <strong>Seats:</strong> {booking.seats.join(", ")}
-                      </p>
-                      <span
-                        className={`booking-status ${booking.status.toLowerCase()}`}
-                      >
+                      <p>{booking.flight.from} ✈ {booking.flight.to}</p>
+                      <p><strong>Seats:</strong> {booking.seats.join(", ")}</p>
+                      <span className={`booking-status ${booking.status.toLowerCase()}`}>
                         {booking.status}
                       </span>
                     </div>
@@ -2223,41 +2215,18 @@ const BookingsPage = () => {
           <div className="modal-box">
             <h3>💳 Payment Confirmation</h3>
             <p>
-              Total Amount:{" "}
-              <strong>₹{flightData?.price * selectedSeats.length}</strong>
+              Total Amount: <strong>₹{flightData?.price * selectedSeats.length}</strong>
             </p>
-            <p>
-              Confirm payment for <strong>{selectedSeats.length}</strong>{" "}
-              seat(s)?
-            </p>
-            <button
-              onClick={async () => {
-                setShowPaymentModal(false);
-                alert("✅ Booking confirmed!");
-                setFlightData(null);
-                setSelectedSeats([]);
-                setFormData([]);
-                router.push("/dashboard/passenger/bookings");
-                const tokenResponse = await fetch("/api/get-token", {
-                  credentials: "include",
-                });
-                const { token } = await tokenResponse.json();
-                const response = await fetch("/api/passenger/bookings", {
-                  headers: { Authorization: `Bearer ${token}` },
-                  credentials: "include",
-                });
-                const data = await response.json();
-                setBookings(data.bookings);
-              }}
-            >
-              Confirm Payment
-            </button>
-            <button
-              className="danger"
-              onClick={() => setShowPaymentModal(false)}
-            >
-              Cancel
-            </button>
+            <p>Confirm payment for <strong>{selectedSeats.length}</strong> seat(s)?</p>
+            <Elements stripe={stripePromise}>
+              <PaymentForm
+                flightData={flightData}
+                selectedSeats={selectedSeats}
+                formData={formData}
+                onSuccess={handleConfirmBooking}
+                onCancel={() => setShowPaymentModal(false)}
+              />
+            </Elements>
           </div>
         </div>
       )}
@@ -2267,43 +2236,24 @@ const BookingsPage = () => {
           <div className="modal-box ticket-modal-box">
             <h3>🎫 Flight Ticket</h3>
             <div className="ticket-info">
-              <p>
-                <strong>Flight:</strong>{" "}
-                {showTicket.flight?.flightNumber || "N/A"}
-              </p>
-              <p>
-                <strong>Airline:</strong>{" "}
-                {showTicket.flight?.airline?.name || "Aero-Vision"}
-              </p>
-              <p>
-                <strong>From:</strong> {showTicket.flight?.from || "N/A"}
-              </p>
-              <p>
-                <strong>To:</strong> {showTicket.flight?.to || "N/A"}
-              </p>
+              <p><strong>Flight:</strong> {showTicket.flight?.flightNumber || "N/A"}</p>
+              <p><strong>Airline:</strong> {showTicket.flight?.airline?.name || "Aero-Vision"}</p>
+              <p><strong>From:</strong> {showTicket.flight?.from || "N/A"}</p>
+              <p><strong>To:</strong> {showTicket.flight?.to || "N/A"}</p>
               <p>
                 <strong>Departure:</strong>{" "}
                 {showTicket.flight?.departure
                   ? new Date(showTicket.flight.departure).toLocaleString()
                   : "N/A"}
               </p>
+              <p><strong>Seats:</strong> {showTicket.seats?.join(", ") || "N/A"}</p>
               <p>
-                <strong>Seats:</strong> {showTicket.seats?.join(", ") || "N/A"}
-              </p>
-              <p>
-                <strong>Passenger:</strong>{" "}
-                {showTicket.passengers?.[0]?.name || "N/A"}
+                <strong>Passenger:</strong> {showTicket.passengers?.[0]?.name || "N/A"}
               </p>
             </div>
             <div className="modal-buttons">
               <button onClick={handleDownloadTicket}>Download Ticket</button>
-              <button
-                className="danger"
-                onClick={() => {
-                  console.log("Closing ticket modal");
-                  setShowTicket(null);
-                }}
-              >
+              <button className="danger" onClick={() => setShowTicket(null)}>
                 Close
               </button>
             </div>
@@ -2324,10 +2274,7 @@ const BookingsPage = () => {
           <div className="modal-box">
             <h3>❌ Delete Booking?</h3>
             <p>This action cannot be undone. Are you sure?</p>
-            <button
-              className="danger"
-              onClick={() => handleCancelBooking(cancelPopup)}
-            >
+            <button className="danger" onClick={() => handleCancelBooking(cancelPopup)}>
               Yes, Delete
             </button>
             <button onClick={() => setCancelPopup(null)}>No</button>
