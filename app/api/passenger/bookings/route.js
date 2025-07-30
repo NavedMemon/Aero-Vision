@@ -8,9 +8,19 @@ import Gate from "@/model/Gate";
 import jwt from "jsonwebtoken";
 import path from "path";
 import { writeFile, mkdir } from "fs/promises";
+import Stripe from "stripe"; // Added import
 
-const JWT_SECRET =
-  process.env.JWT_SECRET || "aerovisionaerovisionaerovisonproject";
+const JWT_SECRET = process.env.JWT_SECRET || "aerovisionaerovisionaerovisonproject";
+
+let stripe;
+try {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error("STRIPE_SECRET_KEY is not set in environment variables");
+  }
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+} catch (error) {
+  console.error("Stripe initialization error:", error.message);
+}
 
 // export async function GET(req) {
 //   await connectDB();
@@ -289,6 +299,13 @@ export async function GET(req) {
 export async function POST(req) {
   await connectDB();
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe is not initialized" },
+        { status: 500 }
+      );
+    }
+
     const token = req.cookies.get("token")?.value;
     if (!token) {
       return NextResponse.json(
@@ -319,10 +336,28 @@ export async function POST(req) {
     const seats = JSON.parse(formData.get("seats"));
     const passengers = JSON.parse(formData.get("passengers"));
     const totalPrice = parseFloat(formData.get("totalPrice"));
+    const paymentIntentId = formData.get("paymentIntentId");
 
-    if (!flightId || !seats?.length || !passengers?.length || !totalPrice) {
+    if (!flightId || !seats?.length || !passengers?.length || !totalPrice || !paymentIntentId) {
       return NextResponse.json(
         { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // Verify Stripe Payment Intent
+    try {
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      if (paymentIntent.status !== "succeeded") {
+        return NextResponse.json(
+          { error: "Payment not confirmed" },
+          { status: 400 }
+        );
+      }
+    } catch (error) {
+      console.error("Stripe payment verification error:", error.message);
+      return NextResponse.json(
+        { error: "Invalid payment intent" },
         { status: 400 }
       );
     }
@@ -341,6 +376,15 @@ export async function POST(req) {
     const flight = await Flight.findById(flightId);
     if (!flight) {
       return NextResponse.json({ error: "Flight not found" }, { status: 404 });
+    }
+
+    // Verify totalPrice matches expected amount
+    const expectedAmount = Math.round(flight.price * seats.length * 100); // Convert to paise
+    if (Math.round(totalPrice * 100) !== expectedAmount) {
+      return NextResponse.json(
+        { error: "Invalid total price" },
+        { status: 400 }
+      );
     }
 
     const existingBookings = await Booking.find({
@@ -404,6 +448,7 @@ export async function POST(req) {
       })),
       totalPrice,
       paymentStatus: "Completed",
+      paymentIntentId, // Store paymentIntentId
       status: "Confirmed",
     });
     await booking.save();
@@ -411,13 +456,17 @@ export async function POST(req) {
     return NextResponse.json({ success: true, booking }, { status: 201 });
   } catch (error) {
     console.error("POST booking error:", error.message);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json({ error: error.message || "Server error" }, { status: 500 });
   }
 }
 
 export async function DELETE(req) {
   await connectDB();
   try {
+    if (!stripe) {
+      console.error("Stripe is not initialized for refund in DELETE");
+    }
+
     const token = req.cookies.get("token")?.value;
     if (!token) {
       return NextResponse.json(
@@ -457,6 +506,18 @@ export async function DELETE(req) {
     });
     if (!booking) {
       return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+    }
+
+    if (booking.paymentIntentId && stripe) {
+      try {
+        await stripe.refunds.create({
+          payment_intent: booking.paymentIntentId,
+        });
+        console.log(`Refund initiated for paymentIntentId: ${booking.paymentIntentId}`);
+      } catch (err) {
+        console.error("Refund error:", err.message);
+        // Log but don't fail the deletion
+      }
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
