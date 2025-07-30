@@ -1,0 +1,502 @@
+/* Root container */
+.container {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%) !important;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    min-width: 100vw;
+}
+
+/* Main content area */
+.main {
+    flex: 1;
+    margin-left: 140px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    overflow-x: auto;
+    background: transparent !important;
+}
+
+/* Centered content */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* Title styling */
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 32px;
+    letter-spacing: -0.03em;
+    background: linear-gradient(45deg, #3b82f6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1s ease-out;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Error message */
+.error {
+    color: #ef4444;
+    background: #fef2f2;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-left: 4px solid #ef4444;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+    animation: slideIn 0.6s ease-out;
+}
+
+/* Filter section */
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.filter label {
+    font-size: 1rem;
+    color: #000000;
+    font-weight: 600;
+}
+
+.filter select {
+    padding: 10px 16px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    transform: scale(1.03);
+}
+
+/* Table container */
+.leave-list {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    backdrop-filter: blur(6px);
+}
+
+/* Table styling */
+.leave-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.leave-table thead {
+    background: linear-gradient(to right, #3b82f6, #7c3aed);
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.leave-table th {
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.leave-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.leave-table tbody tr:nth-child(even) {
+    background: rgba(241, 245, 249, 0.7);
+}
+
+.leave-table tbody tr:hover {
+    background: rgba(219, 234, 254, 0.9);
+    transform: scale(1.01);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.leave-table td {
+    padding: 16px 20px;
+    font-size: 0.95rem;
+    color: #000000;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+}
+
+/* Status styling */
+.status {
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    display: inline-block;
+    font-size: 0.9rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.status:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.status.pending {
+    background: #fef9c3;
+    color: #eab308;
+}
+
+.status.accepted {
+    background: #dcfce7;
+    color: #22c55e;
+}
+
+.status.rejected {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+/* Actions column */
+.actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+.accept-btn,
+.reject-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.accept-btn {
+    background: linear-gradient(to right, #22c55e, #4ade80);
+    color: #ffffff;
+}
+
+.accept-btn:hover {
+    background: linear-gradient(to right, #16a34a, #22c55e);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(34, 197, 94, 0.3);
+}
+
+.reject-btn {
+    background: linear-gradient(to right, #ef4444, #f87171);
+    color: #ffffff;
+}
+
+.reject-btn:hover {
+    background: linear-gradient(to right, #dc2626, #ef4444);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(239, 68, 68, 0.3);
+}
+
+/* Ripple effect */
+.accept-btn::after,
+.reject-btn::after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: scale(0);
+    top: 50%;
+    left: 50%;
+    margin: -60px 0 0 -60px;
+    transition: transform 0.4s ease;
+}
+
+.accept-btn:active::after,
+.reject-btn:active::after {
+    transform: scale(2.5);
+}
+
+/* No leaves message */
+.no-leaves {
+    text-align: center;
+    color: #000000;
+    font-size: 1.2rem;
+    padding: 48px;
+    font-weight: 500;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.pagination button {
+    padding: 10px 24px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.pagination button:hover:not(.disabled) {
+    background: #3b82f6;
+    color: #ffffff;
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.pagination .disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+
+    .container {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    }
+
+    .main {
+        background: transparent !important;
+    }
+
+    .content {
+        background: transparent;
+    }
+
+    .title {
+        color: #ededed;
+        background: linear-gradient(45deg, #60a5fa, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .error {
+        color: #f87171;
+        background: #450a0a;
+        border-left-color: #f87171;
+    }
+
+    .filter {
+        background: rgba(30, 41, 59, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .filter label,
+    .filter select,
+    .leave-table td,
+    .no-leaves,
+    .pagination span {
+        color: #ededed;
+    }
+
+    .filter select {
+        background: #1e293b;
+        border-color: #4b5563;
+    }
+
+    .filter select:focus {
+        border-color: #60a5fa;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    }
+
+    .leave-list {
+        background: rgba(30, 41, 59, 0.9);
+        border: 1px solid rgba(75, 85, 99, 0.5);
+    }
+
+    .leave-table thead {
+        background: linear-gradient(to right, #60a5fa, #a855f7);
+    }
+
+    .leave-table tbody tr:nth-child(even) {
+        background: rgba(55, 65, 81, 0.7);
+    }
+
+    .leave-table tbody tr:hover {
+        background: rgba(71, 85, 105, 0.9);
+    }
+
+    .leave-table td {
+        border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+    }
+
+    .status.pending {
+        background: #713f12;
+        color: #fef08a;
+    }
+
+    .status.accepted {
+        background: #14532d;
+        color: #86efac;
+    }
+
+    .status.rejected {
+        background: #7f1d1d;
+        color: #f87171;
+    }
+
+    .accept-btn {
+        background: linear-gradient(to right, #22c55e, #4ade80);
+    }
+
+    .accept-btn:hover {
+        background: linear-gradient(to right, #16a34a, #22c55e);
+    }
+
+    .reject-btn {
+        background: linear-gradient(to right, #ef4444, #f87171);
+    }
+
+    .reject-btn:hover {
+        background: linear-gradient(to right, #dc2626, #ef4444);
+    }
+
+    .pagination {
+        background: rgba(30, 41, 59, 0.85);
+        border: 1px solid rgba(75, 85, 99, 0.5);
+    }
+
+    .pagination button {
+        background: #1e293b;
+        color: #ededed;
+        border-color: #4b5563;
+    }
+
+    .pagination button:hover:not(.disabled) {
+        background: #60a5fa;
+        border-color: #60a5fa;
+    }
+
+    .leave-card {
+        background: rgba(30, 41, 59, 0.95);
+        border: 1px solid rgba(75, 85, 99, 0.3);
+    }
+
+    .leave-card p {
+        color: #ededed;
+    }
+}
+
+/* Responsive card fallback */
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0;
+        padding: 12px;
+    }
+
+    .title {
+        font-size: 2.25rem;
+    }
+
+    .leave-table {
+        display: none;
+    }
+
+    .leave-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background: transparent;
+        box-shadow: none;
+        border: none;
+    }
+
+    .leave-card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.4s ease;
+    }
+
+    .leave-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .leave-card p {
+        margin: 12px 0;
+        font-size: 0.95rem;
+        color: #000000;
+        line-height: 1.5;
+    }
+
+    .actions {
+        justify-content: center;
+        margin-top: 16px;
+    }
+}

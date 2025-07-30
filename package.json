@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/react": "^3.23.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@react-three/drei": "^10.3.0",
     "@react-three/fiber": "^9.1.2",
     "@svgr/cli": "^8.1.0",
@@ -16,7 +20,7 @@
     "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
     "face-api.js": "^0.22.2",
-    "framer-motion": "^12.19.1",
+    "framer-motion": "^12.23.11",
     "html2pdf.js": "^0.10.3",
     "jose": "^6.0.12",
     "jsonwebtoken": "^9.0.2",
