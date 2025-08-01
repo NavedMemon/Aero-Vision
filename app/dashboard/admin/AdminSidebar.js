@@ -110,10 +110,7 @@ const AdminSidebar = () => {
         <Link href="/dashboard/admin/passengers" className="admin-nav-link">
           <FaUsers /> Passengers
         </Link>
-        <Link
-          href="/dashboard/admin/managecomplaints"
-          className="admin-nav-link"
-        >
+        <Link href="/dashboard/admin/leave" className="admin-nav-link">
           <FcLeave color="black" /> Staff Leave
         </Link>
         <Link

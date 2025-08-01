@@ -1,227 +1,214 @@
-/* Title */
-.admin-complaint-title {
-  font-size: 32px;
-  font-weight: 600;
-  color: #00c2ff;
-  margin-bottom: 20px;
+/* .admin-dashboard-new-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-/* Controls (Search, Status Filter, Export) */
+.admin-dashboard-main-bright {
+  flex: 1;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-complaint-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a3c6d;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 .admin-complaint-controls {
   display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
-  align-items: center;
+  justify-content: center;
 }
 
 .admin-complaint-controls input,
 .admin-complaint-controls select {
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  font-size: 14px;
-  width: 200px;
-  transition: border-color 0.3s ease;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .admin-complaint-controls input:focus,
 .admin-complaint-controls select:focus {
-  border-color: #00c2ff;
   outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.admin-complaint-controls input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-complaint-controls select {
+  min-width: 150px;
 }
 
 .admin-export-button {
-  background: #00c2ff;
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
   color: white;
-  padding: 10px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .admin-export-button:hover {
-  background: #00aacc;
+  background-color: #1e40af;
+  transform: scale(1.05);
 }
 
-.admin-export-button:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
-}
-
-/* Table */
 .admin-complaint-table-container {
-  overflow-x: auto;
-  margin-bottom: 30px;
+  background: white;
   border-radius: 12px;
-  box-shadow: 0 0 15px #00c2ff22;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .admin-complaint-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
 }
 
 .admin-complaint-table th,
 .admin-complaint-table td {
-  padding: 12px 15px;
+  padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .admin-complaint-table th {
-  background: #00c2ff;
-  color: white;
+  background-color: #f3f4f6;
   font-weight: 600;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  color: #1a3c6d;
 }
 
 .admin-complaint-table tr {
-  transition: background 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .admin-complaint-table tr:hover {
-  background: #f5f5f522;
+  background-color: #f9fafb;
 }
 
-.admin-complaint-table td {
-  border-left: 4px solid transparent;
+.priority-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
-.admin-complaint-table tr:nth-child(even) td {
-  background: #f9f9f9;
+.priority-badge.high {
+  background-color: #fee2e2;
+  color: #dc2626;
 }
 
-.admin-complaint-table tr:hover td {
-  border-left: 4px solid #00c2ff;
+.priority-badge.medium {
+  background-color: #fef3c7;
+  color: #d97706;
 }
 
-/* Status Colors and Dropdown */
-.admin-status-pending {
-  color: #ffc107;
-  font-weight: 600;
-}
-
-.admin-status-resolved {
-  color: #28a745;
-  font-weight: 600;
-}
-
-.admin-status-cancelled {
-  color: #dc3545;
-  font-weight: 600;
+.priority-badge.low {
+  background-color: #dcfce7;
+  color: #16a34a;
 }
 
 .admin-status-select {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background: #fff;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
   cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-.admin-status-select.admin-status-pending {
-  color: #ffc107;
-}
-
-.admin-status-select.admin-status-resolved {
-  color: #28a745;
-}
-
-.admin-status-select.admin-status-cancelled {
-  color: #dc3545;
+  transition: all 0.3s ease;
 }
 
 .admin-status-select:focus {
-  border-color: #00c2ff;
-  outline: 2px solid #00c2ff;
-  outline-offset: 2px;
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
 }
 
-/* Action Buttons */
+.admin-status-pending {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.admin-status-in-progress {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.admin-status-resolved {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.admin-status-cancelled {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
 .admin-complaint-actions {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: 0.5rem;
 }
 
 .admin-view-button,
-.admin-delete-button,
-.admin-edit-button {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 12px;
+.admin-delete-button {
+  padding: 0.5rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .admin-view-button {
-  background: #00c2ff;
+  background-color: #3b82f6;
   color: white;
 }
 
-.admin-view-button:hover,
-.admin-view-button:focus {
-  background: #00aacc;
-  transform: translateY(-1px);
-}
-
-.admin-view-button:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
+.admin-view-button:hover {
+  background-color: #2563eb;
+  transform: scale(1.1);
 }
 
 .admin-delete-button {
-  background: #ff4d4d;
+  background-color: #ef4444;
   color: white;
 }
 
-.admin-delete-button:hover:not(:disabled),
-.admin-delete-button:focus:not(:disabled) {
-  background: #ff1a1a;
-  transform: translateY(-1px);
+.admin-delete-button:hover {
+  background-color: #dc2626;
+  transform: scale(1.1);
 }
 
-.admin-delete-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.admin-delete-button:focus {
-  outline: 2px solid #ff1a1a;
-  outline-offset: 2px;
-}
-
-.admin-edit-button {
-  background: #00c2ff;
-  color: white;
-}
-
-.admin-edit-button:hover,
-.admin-edit-button:focus {
-  background: #00aacc;
-  transform: translateY(-1px);
-}
-
-.admin-edit-button:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
-}
-
-/* Modal */
 .admin-complaint-modal-overlay {
   position: fixed;
   top: 0;
@@ -233,207 +220,616 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeInOverlay 0.3s ease;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .admin-complaint-modal {
-  background: #fff;
-  padding: 20px;
+  background: white;
+  padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 0 15px #00c2ff22;
-  border-left: 4px solid #00c2ff;
-  width: 400px;
-  max-width: 90%;
-  position: relative;
-  animation: fadeIn 0.3s ease-in-out;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .admin-complaint-modal h3 {
-  margin-top: 0;
-  color: #00aacc;
-  font-size: 20px;
+  font-size: 1.5rem;
+  color: #1a3c6d;
+  margin-bottom: 1rem;
 }
 
 .admin-complaint-modal p {
-  margin: 10px 0;
-  font-size: 14px;
-  color: #333;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.admin-complaint-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-complaint-form select {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.admin-complaint-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.admin-complaint-form button,
+.admin-edit-button,
+.admin-modal-cancel {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.admin-complaint-form button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.admin-complaint-form button:hover {
+  background-color: #1e40af;
+  transform: scale(1.05);
+}
+
+.admin-edit-button {
+  background-color: #10b981;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-edit-button:hover {
+  background-color: #059669;
+  transform: scale(1.05);
+}
+
+.admin-modal-cancel {
+  background-color: #6b7280;
+  color: white;
+}
+
+.admin-modal-cancel:hover {
+  background-color: #4b5563;
+  transform: scale(1.05);
 }
 
 .admin-modal-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 1.5rem;
   cursor: pointer;
-  color: #555;
+  color: #374151;
   transition: color 0.3s ease;
 }
 
-.admin-modal-close:hover,
-.admin-modal-close:focus {
-  color: #00c2ff;
+.admin-modal-close:hover {
+  color: #dc2626;
 }
 
-.admin-modal-close:focus {
-  outline: 2px solid #00c2ff;
-  outline-offset: 2px;
-}
-
-/* Edit Form */
-.admin-complaint-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.admin-complaint-form input,
-.admin-complaint-form select,
-.admin-complaint-form textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-
-.admin-complaint-form textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.admin-complaint-form input:focus,
-.admin-complaint-form select:focus,
-.admin-complaint-form textarea:focus {
-  border-color: #00c2ff;
-  outline: none;
-}
-
-.admin-complaint-form button,
-.admin-modal-cancel {
-  background: #00c2ff;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
-}
-
-.admin-complaint-form button:hover,
-.admin-complaint-form button:focus,
-.admin-modal-cancel:hover,
-.admin-modal-cancel:focus {
-  background: #00aacc;
-  transform: translateY(-1px);
-}
-
-.admin-complaint-form button:focus,
-.admin-modal-cancel:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
-}
-
-.admin-modal-cancel {
-  background: #ff4d4d;
-  margin-top: 10px;
-}
-
-.admin-modal-cancel:hover,
-.admin-modal-cancel:focus {
-  background: #ff1a1a;
-}
-
-.admin-modal-cancel:focus {
-  outline: 2px solid #ff1a1a;
-  outline-offset: 2px;
-}
-
-/* Pagination */
 .admin-complaint-pagination {
   display: flex;
-  gap: 10px;
   justify-content: center;
-  margin-top: 20px;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .admin-complaint-pagination button {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fff;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: all 0.3s ease;
 }
 
-.admin-complaint-pagination button:hover:not(:disabled),
-.admin-complaint-pagination button:focus:not(:disabled) {
-  background: #f5f5f5;
-  transform: translateY(-1px);
+.admin-complaint-pagination button:hover {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
 }
 
 .admin-complaint-pagination button.active {
-  background: #00c2ff;
+  background-color: #2563eb;
   color: white;
-  border-color: #00c2ff;
+  border-color: #2563eb;
 }
 
 .admin-complaint-pagination button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
-  transform: none;
+  opacity: 0.5;
 }
 
-.admin-complaint-pagination button:focus {
-  outline: 2px solid #00c2ff;
-  outline-offset: 2px;
-}
-
-/* Empty State */
-.admin-no-complaints {
-  font-size: 16px;
-  color: #555;
+.loading-text {
   text-align: center;
-  margin: 20px 0;
+  font-size: 1.25rem;
+  color: #374151;
+  animation: pulse 1.5s infinite;
 }
 
-/* Animations */
+.error-text {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #dc2626;
+}
+
+.admin-no-complaints {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #374151;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+} */
+
+.admin-dashboard-new-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.admin-dashboard-main-bright {
+  flex: 1;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(10px);
   }
+
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .admin-complaint-controls input,
-  .admin-complaint-controls select {
-    width: 100%;
+.admin-complaint-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a3c6d;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.admin-complaint-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.admin-complaint-controls input,
+.admin-complaint-controls select {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-complaint-controls input:focus,
+.admin-complaint-controls select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.admin-complaint-controls input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-complaint-controls select {
+  min-width: 150px;
+}
+
+.admin-export-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.admin-export-button:hover {
+  background-color: #1e40af;
+  transform: scale(1.05);
+}
+
+.admin-complaint-table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.admin-complaint-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-complaint-table th,
+.admin-complaint-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  min-width: 100px;
+}
+
+.admin-complaint-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #1a3c6d;
+}
+
+.admin-complaint-table tr {
+  transition: background-color 0.2s ease;
+}
+
+.admin-complaint-table tr:hover {
+  background-color: #f9fafb;
+}
+
+.priority-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.priority-badge.high {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.priority-badge.medium {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.priority-badge.low {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.admin-status-select {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-status-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.admin-status-pending {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.admin-status-in-progress {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.admin-status-resolved {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.admin-status-cancelled {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.admin-complaint-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-view-button,
+.admin-delete-button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.admin-view-button {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.admin-view-button:hover {
+  background-color: #2563eb;
+  transform: scale(1.1);
+}
+
+.admin-delete-button {
+  background-color: #ef4444;
+  color: white;
+}
+
+.admin-delete-button:hover {
+  background-color: #dc2626;
+  transform: scale(1.1);
+}
+
+.admin-complaint-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeInOverlay 0.3s ease;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
   }
-  .admin-complaint-table th,
-  .admin-complaint-table td {
-    font-size: 12px;
-    padding: 8px;
+
+  to {
+    opacity: 1;
   }
-  .admin-complaint-table th:nth-child(3),
-  .admin-complaint-table td:nth-child(3) {
-    display: none; /* Hide Description on small screens */
+}
+
+.admin-complaint-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
-  .admin-complaint-modal {
-    width: 95%;
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  .admin-complaint-actions {
-    flex-direction: column;
-    gap: 5px;
+}
+
+.admin-complaint-modal h3 {
+  font-size: 1.5rem;
+  color: #1a3c6d;
+  margin-bottom: 1rem;
+}
+
+.admin-complaint-modal p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.admin-complaint-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-complaint-form select {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.admin-complaint-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.admin-complaint-form button,
+.admin-edit-button,
+.admin-modal-cancel {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.admin-complaint-form button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.admin-complaint-form button:hover {
+  background-color: #1e40af;
+  transform: scale(1.05);
+}
+
+.admin-edit-button {
+  background-color: #10b981;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-edit-button:hover {
+  background-color: #059669;
+  transform: scale(1.05);
+}
+
+.admin-modal-cancel {
+  background-color: #6b7280;
+  color: white;
+}
+
+.admin-modal-cancel:hover {
+  background-color: #4b5563;
+  transform: scale(1.05);
+}
+
+.admin-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #374151;
+  transition: color 0.3s ease;
+}
+
+.admin-modal-close:hover {
+  color: #dc2626;
+}
+
+.admin-complaint-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.admin-complaint-pagination button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-complaint-pagination button:hover {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.admin-complaint-pagination button.active {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.admin-complaint-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #374151;
+  animation: pulse 1.5s infinite;
+}
+
+.error-text {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #dc2626;
+}
+
+.admin-no-complaints {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #374151;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
   }
-  .admin-status-select {
-    width: 100%;
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

@@ -1,78 +1,155 @@
 .staff-dashboard-wrapper {
     display: flex;
-    height: 100vh;
-    background-color: #0d1b2a;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
 }
 
-/* === Main Content === */
 .complaint-status-container {
     flex: 1;
-    padding: 40px;
+    padding: 2rem;
     background: #102133;
-    color: #fff;
+    color: #ffffff;
     overflow-y: auto;
 }
 
 .complaint-status-title {
-    font-size: 24px;
+    font-size: 1.75rem;
+    font-weight: 700;
     color: #00ffff;
-    margin-bottom: 25px;
-    text-shadow: 0 0 6px #00ffff80;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
 }
 
-/* === Table Layout === */
 .complaint-table {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0.75rem;
 }
 
 .table-header,
 .table-row {
     display: grid;
-    grid-template-columns: 60px 1.5fr 1fr 1fr 1.5fr;
-    padding: 14px 20px;
+    grid-template-columns: 80px 2fr 1.5fr 1fr 1fr 1.5fr;
+    padding: 1rem;
     background: #12263a;
-    border-radius: 10px;
+    border-radius: 8px;
     align-items: center;
-    font-size: 14px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 .table-header {
     background: #1f354d;
-    font-weight: bold;
+    font-weight: 600;
     color: #00ffff;
-    text-shadow: 0 0 4px #00ffff55;
+    text-shadow: 0 0 4px rgba(0, 255, 255, 0.3);
     border: 1px solid #00ffff33;
 }
 
+.table-row {
+    transition: all 0.3s ease;
+}
+
 .table-row:hover {
-    background-color: #1a2c40;
-    transition: 0.3s;
-    box-shadow: 0 0 10px #00ffff22;
+    background: #1a2c40;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
-/* === Status Badge Styles === */
-.status-badge {
-    padding: 6px 12px;
-    border-radius: 20px;
+.table-header div,
+.table-row div {
+    padding: 0.5rem;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table-row div:nth-child(4),
+.table-row div:nth-child(5) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-badge,
+.priority-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
     font-weight: 500;
-    font-size: 13px;
     text-transform: uppercase;
-    box-shadow: 0 0 6px rgba(0, 255, 255, 0.1);
-}
-
-.status-badge.pending {
-    background-color: #ffcc00;
-    color: #000;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.2);
 }
 
 .status-badge.resolved {
-    background-color: #00ff99;
-    color: #000;
+    background: #00ff99;
+    color: #000000;
+}
+
+.status-badge.pending {
+    background: #ffcc00;
+    color: #000000;
 }
 
 .status-badge.in-progress {
-    background-color: #3399ff;
-    color: #fff;
+    background: #3399ff;
+    color: #ffffff;
+}
+
+.status-badge.cancelled {
+    background: #ff4d4d;
+    color: #ffffff;
+}
+
+.priority-badge.high {
+    background: #ff4d4d;
+    color: #ffffff;
+}
+
+.priority-badge.medium {
+    background: #ffcc00;
+    color: #000000;
+}
+
+.priority-badge.low {
+    background: #00ff99;
+    color: #000000;
+}
+
+.loading-text {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #00ffff;
+    animation: pulse 1.5s infinite;
+}
+
+.error-text {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #ff4d4d;
+}
+
+.no-complaints {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #ffffff;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
