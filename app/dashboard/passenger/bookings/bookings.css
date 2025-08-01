@@ -752,7 +752,7 @@
         padding: 1.5rem;
     }
 } */
-
+/* 
 .bookings-container {
     display: flex;
     flex-direction: column;
@@ -839,6 +839,14 @@
     font-size: 1rem;
     background: #ffffff;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stripe-card-element {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    margin-bottom: 15px;
 }
 
 .passenger-form input:focus,
@@ -1211,10 +1219,955 @@
     }
 
     .stripe-card-element {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fff;
-  margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #fff;
+        margin-bottom: 15px;
+    }
+} */
+
+
+
+
+/* .passenger-dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%) !important;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
 }
+
+.dashboard-layout {
+    display: flex;
+    width: 100%;
+}
+
+.passenger-dashboard-main {
+    flex: 1;
+    margin-left: 240px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    overflow-x: auto;
+    background: transparent !important;
+}
+
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 24px;
+    background: linear-gradient(45deg, #3b82f6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1s ease-out;
+}
+
+.flight-info-box {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.flight-info-box p {
+    font-size: 0.95rem;
+    color: #000000;
+    line-height: 1.5;
+}
+
+
+.booking-form-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.passenger-form {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+}
+
+.passenger-form h3 {
+    font-size: 1.25rem;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.passenger-form input,
+.passenger-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #000000;
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.passenger-form input:focus,
+.passenger-form select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.seat {
+    padding: 10px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.seat:hover:not(.booked):not(.disabled) {
+    background: #dbeafe;
+    transform: scale(1.05);
+}
+
+.seat.selected {
+    background: linear-gradient(to right, #22c55e, #4ade80);
+    color: #ffffff;
+}
+
+.seat.booked {
+    background: #e5e7eb;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.seat:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.payment-form {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.payment-form h3 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.stripe-card-element {
+    padding: 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    background: #ffffff;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.stripe-card-element:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.payment-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+
+.submit-booking-btn,
+.booking-action-btn,
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(to right, #3b82f6, #a855f7);
+    color: #ffffff;
+}
+
+.submit-booking-btn:hover,
+.booking-action-btn:hover,
+button:hover:not(.disabled):not(.danger) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.danger {
+    background: linear-gradient(to right, #ef4444, #f87171);
+}
+
+.danger:hover {
+    background: linear-gradient(to right, #dc2626, #ef4444);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+.booking-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.booking-logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.booking-info h3 {
+    font-size: 1.25rem;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.booking-info p {
+    font-size: 0.9rem;
+    color: #000000;
+    margin: 4px 0;
+}
+
+.booking-status {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.booking-status.confirmed {
+    background: #dcfce7;
+    color: #22c55e;
+}
+
+.booking-status.pending {
+    background: #fef9c3;
+    color: #eab308;
+}
+
+.booking-status.cancelled {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-box h3 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.ticket-info p {
+    font-size: 0.95rem;
+    color: #000000;
+    margin: 8px 0;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+
+.loading-text,
+.error-text,
+.no-bookings {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #000000;
+    padding: 24px;
+}
+
+.error-text {
+    color: #ef4444;
+    background: #fef2f2;
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 4px solid #ef4444;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .passenger-dashboard-container {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    }
+
+    .passenger-dashboard-main {
+        background: transparent !important;
+    }
+
+    .section-title {
+        color: #ededed;
+        background: linear-gradient(45deg, #60a5fa, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .flight-info-box,
+    .passenger-form,
+    .booking-card,
+    .modal-box,
+    .payment-form {
+        background: rgba(30, 41, 59, 0.95);
+        border: 1px solid rgba(75, 85, 99, 0.3);
+    }
+
+    .flight-info-box p,
+    .passenger-form h3,
+    .passenger-form input,
+    .passenger-form select,
+    .booking-info h3,
+    .booking-info p,
+    .ticket-info p,
+    .loading-text,
+    .error-text,
+    .no-bookings {
+        color: #ededed;
+    }
+
+    .passenger-form input,
+    .passenger-form select,
+    .stripe-card-element {
+        background: #1e293b;
+        border-color: #4b5563;
+    }
+
+    .passenger-form input:focus,
+    .passenger-form select:focus,
+    .stripe-card-element:focus-within {
+        border-color: #60a5fa;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    }
+
+    .seat {
+        background: #1e293b;
+        border-color: #4b5563;
+        color: #ededed;
+    }
+
+    .seat.selected {
+        background: linear-gradient(to right, #22c55e, #4ade80);
+    }
+
+    .seat.booked {
+        background: #4b5563;
+        color: #9ca3af;
+    }
+
+    .booking-status.confirmed {
+        background: #14532d;
+        color: #86efac;
+    }
+
+    .booking-status.pending {
+        background: #713f12;
+        color: #fef08a;
+    }
+
+    .booking-status.cancelled {
+        background: #7f1d1d;
+        color: #f87171;
+    }
+
+    .submit-booking-btn,
+    .booking-action-btn,
+    button {
+        background: linear-gradient(to right, #60a5fa, #c084fc);
+    }
+
+    .submit-booking-btn:hover,
+    .booking-action-btn:hover,
+    button:hover:not(.disabled):not(.danger) {
+        box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+
+    .danger {
+        background: linear-gradient(to right, #ef4444, #f87171);
+    }
+
+    .danger:hover {
+        background: linear-gradient(to right, #dc2626, #ef4444);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .passenger-dashboard-main {
+        margin-left: 0;
+        padding: 12px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .seat-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .modal-box {
+        width: 95%;
+        padding: 16px;
+    }
+} */
+
+
+/* Container */
+.passenger-dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%) !important;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+.dashboard-layout {
+    display: flex;
+    width: 100%;
+}
+
+.passenger-dashboard-main {
+    flex: 1;
+    margin-left: 240px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    overflow-x: auto;
+    background: transparent !important;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 24px;
+    background: linear-gradient(45deg, #3b82f6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Flight info box */
+.flight-info-box {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.flight-info-box p {
+    font-size: 0.95rem;
+    color: #000000;
+    line-height: 1.5;
+}
+
+/* Booking form */
+.booking-form-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.passenger-form {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+}
+
+.passenger-form h3 {
+    font-size: 1.25rem;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.passenger-form input,
+.passenger-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #000000;
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.passenger-form input:focus,
+.passenger-form select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Seat grid */
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.seat {
+    padding: 10px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.seat:hover:not(.booked):not(.disabled) {
+    background: #dbeafe;
+    transform: scale(1.05);
+}
+
+.seat.selected {
+    background: linear-gradient(to right, #22c55e, #4ade80);
+    color: #ffffff;
+}
+
+.seat.booked {
+    background: #e5e7eb;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.seat:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Payment form */
+.payment-form {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.payment-form h3 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.stripe-card-element {
+    padding: 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    background: #ffffff;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.stripe-card-element:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.payment-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* Buttons */
+.submit-booking-btn,
+.booking-action-btn,
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(to right, #3b82f6, #a855f7);
+    color: #ffffff;
+}
+
+.submit-booking-btn:hover,
+.booking-action-btn:hover,
+button:hover:not(.disabled):not(.danger) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.danger {
+    background: linear-gradient(to right, #ef4444, #f87171);
+}
+
+.danger:hover {
+    background: linear-gradient(to right, #dc2626, #ef4444);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Booking card */
+.booking-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.booking-logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.booking-info h3 {
+    font-size: 1.25rem;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.booking-info p {
+    font-size: 0.9rem;
+    color: #000000;
+    margin: 4px 0;
+}
+
+.booking-status {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.booking-status.confirmed {
+    background: #dcfce7;
+    color: #22c55e;
+}
+
+.booking-status.on_time {
+    background: #dcfce7;
+    color: #22c55e;
+}
+
+.booking-status.delayed {
+    background: #fef9c3;
+    color: #eab308;
+}
+
+.booking-status.cancelled {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+/* Modal */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-box h3 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.ticket-info p {
+    font-size: 0.95rem;
+    color: #000000;
+    margin: 8px 0;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+/* Loading and error */
+.loading-text,
+.error-text,
+.no-bookings {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #000000;
+    padding: 24px;
+}
+
+.error-text {
+    color: #ef4444;
+    background: #fef2f2;
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 4px solid #ef4444;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    .passenger-dashboard-container {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    }
+
+    .passenger-dashboard-main {
+        background: transparent !important;
+    }
+
+    .section-title {
+        color: #ededed;
+        background: linear-gradient(45deg, #60a5fa, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .flight-info-box,
+    .passenger-form,
+    .booking-card,
+    .modal-box,
+    .payment-form {
+        background: rgba(30, 41, 59, 0.95);
+        border: 1px solid rgba(75, 85, 99, 0.3);
+    }
+
+    .flight-info-box p,
+    .passenger-form h3,
+    .passenger-form input,
+    .passenger-form select,
+    .booking-info h3,
+    .booking-info p,
+    .ticket-info p,
+    .loading-text,
+    .error-text,
+    .no-bookings {
+        color: #ededed;
+    }
+
+    .passenger-form input,
+    .passenger-form select,
+    .stripe-card-element {
+        background: #1e293b;
+        border-color: #4b5563;
+    }
+
+    .passenger-form input:focus,
+    .passenger-form select:focus,
+    .stripe-card-element:focus-within {
+        border-color: #60a5fa;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    }
+
+    .seat {
+        background: #1e293b;
+        border-color: #4b5563;
+        color: #ededed;
+    }
+
+    .seat.selected {
+        background: linear-gradient(to right, #22c55e, #4ade80);
+    }
+
+    .seat.booked {
+        background: #4b5563;
+        color: #9ca3af;
+    }
+
+    .booking-status.confirmed {
+        background: #14532d;
+        color: #86efac;
+    }
+
+    .booking-status.on_time {
+        background: #14532d;
+        color: #86efac;
+    }
+
+    .booking-status.delayed {
+        background: #713f12;
+        color: #fef08a;
+    }
+
+    .booking-status.cancelled {
+        background: #7f1d1d;
+        color: #f87171;
+    }
+
+    .submit-booking-btn,
+    .booking-action-btn,
+    button {
+        background: linear-gradient(to right, #60a5fa, #c084fc);
+    }
+
+    .submit-booking-btn:hover,
+    .booking-action-btn:hover,
+    button:hover:not(.disabled):not(.danger) {
+        box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+
+    .danger {
+        background: linear-gradient(to right, #ef4444, #f87171);
+    }
+
+    .danger:hover {
+        background: linear-gradient(to right, #dc2626, #ef4444);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .passenger-dashboard-main {
+        margin-left: 0;
+        padding: 12px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .seat-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .modal-box {
+        width: 95%;
+        padding: 16px;
+    }
 }
