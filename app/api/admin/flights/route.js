@@ -280,20 +280,60 @@ import Airline from "@/model/Airline";
 import Gate from "@/model/Gate";
 import mongoose from "mongoose";
 
+// export async function GET(req) {
+//   await connectDB();
+//   const token = req.cookies.get("token")?.value;
+
+//   if (!token) {
+//     return NextResponse.json(
+//       { error: "Unauthorized: No token provided" },
+//       { status: 401 }
+//     );
+//   }
+
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     if (decoded.role !== "admin") {
+//       return NextResponse.json(
+//         { error: "Unauthorized: Admin access required" },
+//         { status: 403 }
+//       );
+//     }
+
+//     const admin = await Admin.findById(decoded.id);
+//     if (!admin) {
+//       console.log("GET - Admin not found for id:", decoded.id);
+//       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
+//     }
+
+//     const flights = await Flight.find()
+//       .populate("airline", "name logo")
+//       .populate("gate", "gateNumber")
+//       .populate("createdBy", "email")
+//       .sort({ createdAt: -1 });
+//     return NextResponse.json({ success: true, flights }, { status: 200 });
+//   } catch (error) {
+//     console.error("GET - Error:", error.message);
+//     return NextResponse.json({ error: "Server error" }, { status: 500 });
+//   }
+// }
+
 export async function GET(req) {
-  await connectDB();
-  const token = req.cookies.get("token")?.value;
-
-  if (!token) {
-    return NextResponse.json(
-      { error: "Unauthorized: No token provided" },
-      { status: 401 }
-    );
-  }
-
   try {
+    await connectDB();
+    const token = req.cookies.get("token")?.value;
+
+    if (!token) {
+      console.log("No token provided for flights");
+      return NextResponse.json(
+        { error: "Unauthorized: No token provided" },
+        { status: 401 }
+      );
+    }
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (decoded.role !== "admin") {
+      console.log("Non-admin access attempted:", decoded.role);
       return NextResponse.json(
         { error: "Unauthorized: Admin access required" },
         { status: 403 }
@@ -302,7 +342,7 @@ export async function GET(req) {
 
     const admin = await Admin.findById(decoded.id);
     if (!admin) {
-      console.log("GET - Admin not found for id:", decoded.id);
+      console.log("Admin not found for id:", decoded.id);
       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
     }
 
@@ -311,10 +351,14 @@ export async function GET(req) {
       .populate("gate", "gateNumber")
       .populate("createdBy", "email")
       .sort({ createdAt: -1 });
+    console.log("Fetched flights:", flights.length);
     return NextResponse.json({ success: true, flights }, { status: 200 });
   } catch (error) {
-    console.error("GET - Error:", error.message);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    console.error("GET - Error fetching flights:", error.message);
+    return NextResponse.json(
+      { error: "Failed to fetch flights: " + error.message },
+      { status: 500 }
+    );
   }
 }
 

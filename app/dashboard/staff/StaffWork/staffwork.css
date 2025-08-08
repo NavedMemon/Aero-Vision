@@ -1,4 +1,4 @@
-.staff-dashboard-wrapper {
+/* .staff-dashboard-wrapper {
     display: flex;
     height: 100vh;
     background-color: #0d1b2a;
@@ -85,4 +85,199 @@
     background-color: #555;
     color: #aaa;
     cursor: not-allowed;
+} */
+
+.staff-dashboard-wrapper {
+    display: flex;
+    height: 100vh;
+    background-color: #0d1b2a;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.staff-dashboard-main {
+    flex: 1;
+    padding: 40px;
+    background-color: #102133;
+    color: white;
+    overflow-y: auto;
+}
+
+.dashboard-heading,
+.work-heading {
+    font-size: 24px;
+    color: #00ffff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 6px #00ffffaa;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.dashboard-card {
+    background: #12263a;
+    border-left: 4px solid #00ffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ffff33;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-icon {
+    font-size: 24px;
+    color: #00ffff;
+}
+
+.dashboard-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.dashboard-card p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00aacc;
+    margin: 0;
+}
+
+.tasks-section {
+    margin-top: 40px;
+    max-width: 1200px;
+}
+
+.tasks-heading {
+    font-size: 24px;
+    font-weight: 600;
+    color: #00ffff;
+    margin-bottom: 20px;
+    text-shadow: 0 0 6px #00ffffaa;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task-card {
+    background: #12263a;
+    border-left: 4px solid #00ffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ffff33;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 10px 0;
+}
+
+.task-card p {
+    font-size: 0.9rem;
+    color: #d1d5db;
+    margin: 5px 0;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.task-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.start-btn {
+    background-color: #00bfff;
+    color: #000;
+}
+
+.start-btn:hover {
+    background-color: #00aacc;
+    transform: scale(1.03);
+}
+
+.finish-btn {
+    background-color: #00ff99;
+    color: #000;
+}
+
+.finish-btn:hover {
+    background-color: #00cc7a;
+    transform: scale(1.03);
+}
+
+.start-btn:disabled,
+.finish-btn:disabled {
+    background-color: #555;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.work-table {
+    width: 100%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    background-color: #12263a;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00ffff33;
+}
+
+.work-table th,
+.work-table td {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid #1f354d;
+    font-size: 14px;
+    color: #d1d5db;
+}
+
+.work-table th {
+    background-color: #1e3a56;
+    color: #00ffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+    padding: 18px 24px;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.status.pending {
+    color: orange;
+}
+
+.status.in-progress {
+    color: yellow;
+}
+
+.status.completed {
+    color: lime;
+}
+
+.form-error {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-top: 10px;
 }

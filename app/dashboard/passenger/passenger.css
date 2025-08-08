@@ -176,6 +176,7 @@
     border-left: 4px solid #00c2ff;
 }
 
+/* 
 .passenger-sidebar {
     width: 250px;
     background-color: #0f0f0f;
@@ -215,7 +216,71 @@
 .passenger-nav-link:hover {
     color: #00eaff;
     transform: scale(1.05);
+} */
+
+
+.passenger-sidebar {
+    width: 250px;
+    background-color: #0f0f0f;
+    border-right: 1px solid #1f1f1f;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    box-shadow: 0 0 30px #00c2ff44;
 }
+
+.passenger-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00f2ff;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #00f2ff99;
+}
+
+.passenger-nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.passenger-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #aaa;
+    transition: 0.3s ease-in-out;
+    position: relative;
+    /* For notification badge */
+}
+
+.passenger-nav-link:hover {
+    color: #00eaff;
+    transform: scale(1.05);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: #ff5555;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px rgba(255, 85, 85, 0.5);
+}
+
+
 
 .passenger-logout {
     margin-top: auto;
@@ -338,4 +403,16 @@
     height: 150px;
     width: 100%;
     margin-top: 12px;
+}
+
+.notification-badge {
+    background-color: #ff4d4d;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }

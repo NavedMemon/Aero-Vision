@@ -1,4 +1,4 @@
-.staff-dashboard-wrapper {
+/* .staff-dashboard-wrapper {
     display: flex;
     height: 100vh;
     background: linear-gradient(to right, #0d1b2a, #1b263b);
@@ -46,4 +46,108 @@
 .note-time {
     font-size: 12px;
     color: #aaa;
+} */
+
+.staff-dashboard-wrapper {
+    display: flex;
+    height: 100vh;
+    background: linear-gradient(to right, #0d1b2a, #1b263b);
+}
+
+.notifications-container {
+    flex: 1;
+    padding: 40px;
+    color: #00ffff;
+    overflow-y: auto;
+}
+
+.notifications-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-shadow: 0 0 6px #00ffff66;
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    /* Changed to row for horizontal layout */
+    gap: 20px;
+    overflow-x: auto;
+    /* Enable horizontal scrolling */
+    white-space: nowrap;
+    /* Prevent wrapping */
+    padding-bottom: 10px;
+    /* Space for scrollbar */
+}
+
+.notification-card {
+    background: #112233;
+    border-left: 5px solid #00ffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+    transition: transform 0.2s ease;
+    min-width: 250px;
+    /* Fixed width for each card */
+    flex: 0 0 auto;
+    /* Prevent cards from shrinking */
+}
+
+.notification-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.note-text {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.note-time {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.form-error {
+    color: #ff5555;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.no-announcements {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination-btn {
+    background: #00ffff;
+    color: #112233;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.pagination-btn:hover {
+    background: #00cccc;
+}
+
+.pagination-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.pagination-btn.active {
+    background: #00aaaa;
+    font-weight: bold;
 }
