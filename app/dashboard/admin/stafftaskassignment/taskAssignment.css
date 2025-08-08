@@ -1,0 +1,221 @@
+/* .admin-dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #fefefe 0%, #f2f2f2 100%);
+    color: #111827;
+}
+
+.admin-dashboard-main {
+    flex: 1;
+    padding: 40px 50px;
+    overflow-y: auto;
+}
+
+.task-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #00c2ff;
+    margin-bottom: 20px;
+}
+
+.task-form-card {
+    background: #fff;
+    border-left: 4px solid #00c2ff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00c2ff22;
+    max-width: 800px;
+   
+    width: 100%;
+   
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.form-select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    color: #4b5563;
+    height: 200px;
+}
+
+.form-select.error {
+    border-color: #ff4d4d;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    color: #4b5563;
+    min-height: 80px;
+    resize: vertical;
+}
+
+.form-textarea.error {
+    border-color: #ff4d4d;
+}
+
+.task-descriptions h3 {
+    font-size: 1.1rem;
+    color: #00aacc;
+    margin-bottom: 15px;
+}
+
+.assign-button {
+    padding: 10px 20px;
+    background: #00c2ff;
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.assign-button:hover {
+    background: #00aacc;
+    transform: scale(1.03);
+}
+
+.form-error {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.form-success {
+    color: #00aacc;
+    font-size: 0.9rem;
+    margin-top: 10px;
+} */
+
+.admin-dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #fefefe 0%, #f2f2f2 100%);
+    color: #111827;
+}
+
+.admin-dashboard-main {
+    flex: 1;
+    padding: 40px 50px;
+    overflow-y: auto;
+}
+
+.task-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #00c2ff;
+    margin-bottom: 20px;
+}
+
+.task-form-card {
+    background: #fff;
+    border-left: 4px solid #00c2ff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00c2ff22;
+    max-width: 800px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.form-select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    color: #4b5563;
+    height: 200px;
+}
+
+.form-select.error {
+    border-color: #ff4d4d;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    color: #4b5563;
+    min-height: 80px;
+    resize: vertical;
+}
+
+.form-textarea.error {
+    border-color: #ff4d4d;
+}
+
+.task-descriptions h3 {
+    font-size: 1.1rem;
+    color: #00aacc;
+    margin-bottom: 15px;
+}
+
+.assign-button {
+    padding: 10px 20px;
+    background: #00c2ff;
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.assign-button:hover {
+    background: #00aacc;
+    transform: scale(1.03);
+}
+
+.form-error {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.form-success {
+    color: #00aacc;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}

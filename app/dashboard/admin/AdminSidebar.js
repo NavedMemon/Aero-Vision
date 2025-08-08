@@ -65,6 +65,7 @@ import {
   FaChartLine,
   FaTasks,
   FaDoorOpen,
+  FaClipboardList,
 } from "react-icons/fa";
 import { FcLeave } from "react-icons/fc";
 
@@ -119,10 +120,16 @@ const AdminSidebar = () => {
         >
           <FaExclamationCircle /> Complaints
         </Link>
+        <Link
+          href="/dashboard/admin/stafftaskassignment"
+          className="admin-nav-link"
+        >
+          <FaClipboardList /> Assign Tasks
+        </Link>
         <Link href="/dashboard/admin/managetask" className="admin-nav-link">
           <FaTasks /> Manage Tasks
         </Link>
-        <Link href="/dashboard/admin/announcements" className="admin-nav-link">
+        <Link href="/dashboard/admin/announcement" className="admin-nav-link">
           <FaBullhorn /> Announcements
         </Link>
         <Link href="/dashboard/admin/reports" className="admin-nav-link">

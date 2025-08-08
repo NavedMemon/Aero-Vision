@@ -1,187 +1,132 @@
-/* Title */
+.admin-dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #0d1b2a;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.admin-dashboard-main {
+  flex: 1;
+  padding: 40px;
+  background-color: #102133;
+  color: white;
+  overflow-y: auto;
+}
+
 .admin-task-title {
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 24px;
   color: #00c2ff;
+  margin-bottom: 30px;
+  text-shadow: 0 0 6px #00c2ffaa;
+}
+
+.form-error {
+  color: #ff4d4d;
+  font-size: 0.8rem;
   margin-bottom: 20px;
 }
 
-/* Controls (Search, Status Filter, Export, Create Task) */
 .admin-task-controls {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   flex-wrap: wrap;
   align-items: center;
+  max-width: 1200px;
 }
 
 .admin-task-controls input,
 .admin-task-controls select {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 8px;
   font-size: 14px;
+  background: #12263a;
+  color: white;
   width: 200px;
-  transition: border-color 0.3s ease;
+  transition: outline 0.3s ease;
 }
 
 .admin-task-controls input:focus,
 .admin-task-controls select:focus {
-  border-color: #00c2ff;
-  outline: none;
+  outline: 2px solid #00c2ff;
 }
 
-.admin-export-button,
-.admin-create-task-button {
-  background: #00c2ff;
-  color: white;
+.admin-task-controls input[type="date"] {
+  width: 150px;
+}
+
+.admin-export-button {
+  background: #00bfff;
+  color: #000;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   gap: 5px;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.admin-create-task-button {
-  background: #28a745;
-}
-
-.admin-export-button:hover,
-.admin-create-task-button:hover {
+.admin-export-button:hover {
   background: #00aacc;
+  transform: scale(1.03);
 }
 
-.admin-create-task-button:hover {
-  background: #218838;
-}
-
-.admin-export-button:focus,
-.admin-create-task-button:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
-}
-
-.admin-create-task-button:focus {
-  outline: 2px solid #218838;
-}
-
-/* Table */
 .admin-task-table-container {
   overflow-x: auto;
   margin-bottom: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px #00c2ff22;
+  max-width: 1200px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00c2ff33;
 }
 
 .admin-task-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
+  background: #12263a;
 }
 
 .admin-task-table th,
 .admin-task-table td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #1e3a5f;
   font-size: 14px;
+  color: white;
 }
 
 .admin-task-table th {
   background: #00c2ff;
-  color: white;
+  color: #000;
   font-weight: 600;
   position: sticky;
   top: 0;
   z-index: 1;
 }
 
-.admin-task-table tr {
-  transition: background 0.2s ease;
-}
-
-.admin-task-table tr:hover {
-  background: #f5f5f522;
-}
-
-.admin-task-table td {
-  border-left: 4px solid transparent;
-}
-
-.admin-task-table tr:nth-child(even) td {
-  background: #f9f9f9;
-}
-
 .admin-task-table tr:hover td {
+  background: #1e3a5f;
   border-left: 4px solid #00c2ff;
 }
 
-/* Status Colors and Dropdown */
-.admin-status-to-do {
+.admin-status-assigned {
   color: #ffc107;
   font-weight: 600;
 }
 
-.admin-status-in-progress {
+.admin-status-started {
   color: #17a2b8;
   font-weight: 600;
 }
 
-.admin-status-done {
-  color: #28a745;
+.admin-status-completed {
+  color: #00ff99;
   font-weight: 600;
 }
 
-.admin-status-pending {
-  color: #dc3545;
-  font-weight: 600;
-}
-
-.admin-status-select {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background: #fff;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-.admin-status-select.admin-status-to-do {
-  color: #ffc107;
-}
-
-.admin-status-select.admin-status-in-progress {
-  color: #17a2b8;
-}
-
-.admin-status-select.admin-status-done {
-  color: #28a745;
-}
-
-.admin-status-select.admin-status-pending {
-  color: #dc3545;
-}
-
-.admin-status-select:focus {
-  border-color: #00c2ff;
-  outline: 2px solid #00c2ff;
-  outline-offset: 2px;
-}
-
-/* Action Buttons */
-.admin-task-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.admin-view-button,
-.admin-delete-button,
 .admin-edit-button {
   display: flex;
   align-items: center;
@@ -191,71 +136,24 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.3s ease, transform 0.1s ease;
-}
-
-.admin-view-button {
   background: #00c2ff;
-  color: white;
-}
-
-.admin-view-button:hover,
-.admin-view-button:focus {
-  background: #00aacc;
-  transform: translateY(-1px);
-}
-
-.admin-view-button:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
-}
-
-.admin-delete-button {
-  background: #ff4d4d;
-  color: white;
-}
-
-.admin-delete-button:hover:not(:disabled),
-.admin-delete-button:focus:not(:disabled) {
-  background: #ff1a1a;
-  transform: translateY(-1px);
-}
-
-.admin-delete-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.admin-delete-button:focus {
-  outline: 2px solid #ff1a1a;
-  outline-offset: 2px;
-}
-
-.admin-edit-button {
-  background: #00c2ff;
-  color: white;
+  color: #000;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .admin-edit-button:hover,
 .admin-edit-button:focus {
   background: #00aacc;
-  transform: translateY(-1px);
+  transform: scale(1.03);
 }
 
-.admin-edit-button:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
-}
-
-/* Modal */
 .admin-task-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -263,27 +161,20 @@
 }
 
 .admin-task-modal {
-  background: #fff;
+  background: #12263a;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px #00c2ff22;
+  border-radius: 8px;
   border-left: 4px solid #00c2ff;
   width: 400px;
   max-width: 90%;
-  position: relative;
+  color: white;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .admin-task-modal h3 {
   margin-top: 0;
-  color: #00aacc;
+  color: #00c2ff;
   font-size: 20px;
-}
-
-.admin-task-modal p {
-  margin: 10px 0;
-  font-size: 14px;
-  color: #333;
 }
 
 .admin-modal-close {
@@ -294,7 +185,7 @@
   border: none;
   font-size: 18px;
   cursor: pointer;
-  color: #555;
+  color: #d1d5db;
   transition: color 0.3s ease;
 }
 
@@ -303,12 +194,6 @@
   color: #00c2ff;
 }
 
-.admin-modal-close:focus {
-  outline: 2px solid #00c2ff;
-  outline-offset: 2px;
-}
-
-/* Task Form */
 .admin-task-form {
   display: flex;
   flex-direction: column;
@@ -319,10 +204,12 @@
 .admin-task-form select,
 .admin-task-form textarea {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 8px;
   font-size: 14px;
-  transition: border-color 0.3s ease;
+  background: #1e3a5f;
+  color: white;
+  transition: outline 0.3s ease;
 }
 
 .admin-task-form textarea {
@@ -333,19 +220,18 @@
 .admin-task-form input:focus,
 .admin-task-form select:focus,
 .admin-task-form textarea:focus {
-  border-color: #00c2ff;
-  outline: none;
+  outline: 2px solid #00c2ff;
 }
 
 .admin-task-form button,
 .admin-modal-cancel {
   background: #00c2ff;
-  color: white;
+  color: #000;
   padding: 10px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .admin-task-form button:hover,
@@ -353,13 +239,7 @@
 .admin-modal-cancel:hover,
 .admin-modal-cancel:focus {
   background: #00aacc;
-  transform: translateY(-1px);
-}
-
-.admin-task-form button:focus,
-.admin-modal-cancel:focus {
-  outline: 2px solid #00aacc;
-  outline-offset: 2px;
+  transform: scale(1.03);
 }
 
 .admin-modal-cancel {
@@ -372,12 +252,6 @@
   background: #ff1a1a;
 }
 
-.admin-modal-cancel:focus {
-  outline: 2px solid #ff1a1a;
-  outline-offset: 2px;
-}
-
-/* Pagination */
 .admin-task-pagination {
   display: flex;
   gap: 10px;
@@ -387,82 +261,73 @@
 
 .admin-task-pagination button {
   padding: 8px 12px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 6px;
-  background: #fff;
+  background: #00bfff;
+  color: #000;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .admin-task-pagination button:hover:not(:disabled),
 .admin-task-pagination button:focus:not(:disabled) {
-  background: #f5f5f5;
-  transform: translateY(-1px);
+  background: #00aacc;
+  transform: scale(1.03);
 }
 
 .admin-task-pagination button.active {
-  background: #00c2ff;
-  color: white;
-  border-color: #00c2ff;
+  background: #00ff99;
+  color: #000;
 }
 
 .admin-task-pagination button:disabled {
-  cursor: not-allowed;
+  background: #555;
   opacity: 0.6;
-  transform: none;
 }
 
-.admin-task-pagination button:focus {
-  outline: 2px solid #00c2ff;
-  outline-offset: 2px;
-}
-
-/* Empty State */
 .admin-no-tasks {
   font-size: 16px;
-  color: #555;
+  color: #d1d5db;
   text-align: center;
   margin: 20px 0;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
+
   .admin-task-controls input,
   .admin-task-controls select {
     width: 100%;
   }
+
   .admin-task-table th,
   .admin-task-table td {
     font-size: 12px;
     padding: 8px;
   }
-  .admin-task-table th:nth-child(2),
-  .admin-task-table td:nth-child(2),
+
+  .admin-task-table th:nth-child(5),
+  .admin-task-table td:nth-child(5),
   .admin-task-table th:nth-child(6),
-  .admin-task-table td:nth-child(6) {
-    display: none; /* Hide Description and Created At on small screens */
+  .admin-task-table td:nth-child(6),
+  .admin-task-table th:nth-child(7),
+  .admin-task-table td:nth-child(7) {
+    display: none;
   }
+
   .admin-task-modal {
     width: 95%;
-  }
-  .admin-task-actions {
-    flex-direction: column;
-    gap: 5px;
-  }
-  .admin-status-select {
-    width: 100%;
   }
 }
