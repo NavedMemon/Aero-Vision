@@ -477,10 +477,13 @@
 .admin-complaint-controls input {
   flex: 1;
   min-width: 200px;
+  color: black;
+
 }
 
 .admin-complaint-controls select {
   min-width: 150px;
+  color: black;
 }
 
 .admin-export-button {
@@ -521,6 +524,7 @@
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
   min-width: 100px;
+  color: black;
 }
 
 .admin-complaint-table th {
