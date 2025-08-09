@@ -1,4 +1,4 @@
-/* .staff-dashboard-wrapper {
+/* /* .staff-dashboard-wrapper {
     display: flex;
     height: 100vh;
     background-color: #0d1b2a;
@@ -87,7 +87,7 @@
     cursor: not-allowed;
 } */
 
-.staff-dashboard-wrapper {
+/* .staff-dashboard-wrapper {
     display: flex;
     height: 100vh;
     background-color: #0d1b2a;
@@ -280,4 +280,231 @@
     color: #ff4d4d;
     font-size: 0.8rem;
     margin-top: 10px;
+}  */
+
+.staff-dashboard-wrapper {
+    display: flex;
+    height: 100vh;
+    background-color: #0d1b2a;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.staff-dashboard-main {
+    flex: 1;
+    padding: 40px;
+    background-color: #102133;
+    color: white;
+    overflow-y: auto;
+}
+
+.work-heading {
+    font-size: 24px;
+    color: #00ffff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 6px #00ffffaa;
+}
+
+.tasks-section {
+    background: #12263a;
+    border-left: 4px solid #00ffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ffff33;
+}
+
+.work-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.work-table th,
+.work-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #1e3a56;
+}
+
+.work-table th {
+    background-color: #1e3a56;
+    color: #00ffff;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.status.pending {
+    background-color: #ffaa0033;
+    color: #ffaa00;
+}
+
+.status.delegated {
+    background-color: #00ff9933;
+    color: #00ff99;
+}
+
+.status.in-progress {
+    background-color: #007bff33;
+    color: #007bff;
+}
+
+.assign-btn,
+.start-btn,
+.finish-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.assign-btn:hover,
+.start-btn:hover,
+.finish-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+.form-error {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-card {
+    background: #1e3a56;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-details {
+    background: #1e3a56;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.task-details h3 {
+    color: #00ffff;
+    margin-bottom: 10px;
+}
+
+.task-details p {
+    margin: 5px 0;
+    color: #d1d5db;
+}
+
+.task-details strong {
+    color: #fff;
+}
+
+/* ... other styles ... */
+/* ... other styles ... */
+.assign-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    visibility: visible;
+}
+
+.assign-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+.start-btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.start-btn:hover {
+    background-color: #218838;
+    transform: scale(1.03);
+}
+
+.finish-btn {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.finish-btn:hover {
+    background-color: #e0a800;
+    transform: scale(1.03);
+}
+
+.accept-btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.accept-btn:hover {
+    background-color: #218838;
+    transform: scale(1.03);
+}
+
+.reject-btn {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.03);
+}
+
+.reject-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.reject-reason-input {
+    padding: 6px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
 }

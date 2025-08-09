@@ -610,6 +610,181 @@
 
 // export default StaffAnnouncementsPage;
 
+// "use client";
+// import React, { useState, useEffect } from "react";
+// import StaffSidebar from "../StaffSideBar";
+// import "./announcement.css";
+
+// const StaffAnnouncementsPage = () => {
+//   const [notifications, setNotifications] = useState([]);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [user, setUser] = useState({
+//     role: "Staff",
+//     staffRole: null,
+//   });
+//   const [error, setError] = useState("");
+//   const notificationsPerPage = 5;
+
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//       try {
+//         const response = await fetch("/api/get-token", {
+//           credentials: "include",
+//         });
+//         if (!response.ok) {
+//           throw new Error("Failed to fetch user data");
+//         }
+//         const data = await response.json();
+//         setUser({
+//           role: data.role,
+//           staffRole: data.role,
+//         });
+//       } catch (error) {
+//         console.error("Error fetching user:", error);
+//         setError("Failed to load user data: " + error.message);
+//       }
+//     };
+
+//     const fetchNotifications = async () => {
+//       try {
+//         const response = await fetch("/api/staff/notifications", {
+//           credentials: "include",
+//         });
+//         if (!response.ok) {
+//           const errorData = await response.json();
+//           throw new Error(errorData.error || "Failed to fetch notifications");
+//         }
+//         const data = await response.json();
+//         // Filter for announcements (exclude task and team leader notifications)
+//         const announcements = (data.notifications || []).filter(
+//           (note) =>
+//             note.announcementId &&
+//             !note.text.toLowerCase().includes("task assigned") &&
+//             !note.text
+//               .toLowerCase()
+//               .includes("you have been assigned as the team leader") &&
+//             !note.text
+//               .toLowerCase()
+//               .includes("you have been removed as the team leader")
+//         );
+//         console.log("Fetched announcements:", announcements.length);
+//         setNotifications(announcements);
+//         setError("");
+
+//         // Mark announcements as read
+//         announcements.forEach(async (note) => {
+//           if (!note.read) {
+//             try {
+//               await fetch("/api/staff/notifications", {
+//                 method: "PUT",
+//                 headers: { "Content-Type": "application/json" },
+//                 credentials: "include",
+//                 body: JSON.stringify({ id: note.id }),
+//               });
+//             } catch (err) {
+//               console.error("Error marking announcement as read:", err);
+//             }
+//           }
+//         });
+//       } catch (error) {
+//         console.error("Error fetching announcements:", error);
+//         setError("Failed to load announcements: " + error.message);
+//         setNotifications([]);
+//       }
+//     };
+
+//     fetchUser();
+//     fetchNotifications();
+//   }, []);
+
+//   const totalPages = Math.ceil(notifications.length / notificationsPerPage);
+//   const startIndex = (currentPage - 1) * notificationsPerPage;
+//   const currentNotifications = notifications.slice(
+//     startIndex,
+//     startIndex + notificationsPerPage
+//   );
+
+//   return (
+//     <div className="public-dashboard-container">
+//       <StaffSidebar userRole={user.role} />
+//       <div className="public-dashboard-main">
+//         <div className="announcements-header">
+//           <h1 className="public-welcome">Staff Announcements</h1>
+//         </div>
+//         <div className="public-alert-box">
+//           <h3>Latest Announcements</h3>
+//           {error && <p className="form-error">{error}</p>}
+//           {notifications.length === 0 ? (
+//             <p className="no-announcements">No announcements available.</p>
+//           ) : (
+//             <div className="announcements-section">
+//               {currentNotifications.map((note) => (
+//                 <div key={note.id} className="announcement-item">
+//                   <div className="announcement-content">
+//                     <p className="announcement-audience">
+//                       <strong>
+//                         {note.announcement?.audience || "Unknown"}
+//                       </strong>
+//                       {note.announcement?.audience === "Staff" &&
+//                         note.announcement?.role &&
+//                         `: ${note.announcement.role}`}
+//                       {note.announcement?.audience === "Passenger" &&
+//                         (note.announcement?.flight
+//                           ? `: ${note.announcement.flight}`
+//                           : ": All Passengers")}
+//                     </p>
+//                     <p className="announcement-text">{note.text}</p>
+//                     <p className="announcement-date">
+//                       🕒{" "}
+//                       {new Date(note.createdAt).toLocaleString("en-IN", {
+//                         dateStyle: "medium",
+//                         timeStyle: "short",
+//                       })}
+//                     </p>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           )}
+//           {totalPages > 1 && (
+//             <div className="pagination">
+//               <button
+//                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+//                 disabled={currentPage === 1}
+//                 className="pagination-btn"
+//               >
+//                 Previous
+//               </button>
+//               {[...Array(totalPages)].map((_, i) => (
+//                 <button
+//                   key={i + 1}
+//                   onClick={() => setCurrentPage(i + 1)}
+//                   className={`pagination-btn ${
+//                     currentPage === i + 1 ? "active" : ""
+//                   }`}
+//                 >
+//                   {i + 1}
+//                 </button>
+//               ))}
+//               <button
+//                 onClick={() =>
+//                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+//                 }
+//                 disabled={currentPage === totalPages}
+//                 className="pagination-btn"
+//               >
+//                 Next
+//               </button>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default StaffAnnouncementsPage;
+
 "use client";
 import React, { useState, useEffect } from "react";
 import StaffSidebar from "../StaffSideBar";
@@ -635,6 +810,7 @@ const StaffAnnouncementsPage = () => {
           throw new Error("Failed to fetch user data");
         }
         const data = await response.json();
+        console.log("Fetched user:", { id: data.id, role: data.role });
         setUser({
           role: data.role,
           staffRole: data.role,
@@ -647,39 +823,36 @@ const StaffAnnouncementsPage = () => {
 
     const fetchNotifications = async () => {
       try {
-        const response = await fetch("/api/staff/notifications", {
+        const response = await fetch("/api/staff/announcements", {
           credentials: "include",
         });
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || "Failed to fetch notifications");
+          throw new Error(errorData.error || "Failed to fetch announcements");
         }
         const data = await response.json();
-        // Filter out task notifications
-        const announcements = (data.notifications || []).filter(
-          (note) => !note.text.includes("task assigned by admin")
-        );
-        console.log("Fetched announcements:", announcements.length);
-        setNotifications(announcements);
+        console.log("Fetched announcements:", data.notifications);
+        setNotifications(data.notifications || []);
         setError("");
 
-        // Mark notifications as read
-        announcements.forEach(async (note) => {
-          if (!note.read) {
-            try {
-              await fetch("/api/staff/notifications", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({ id: note.id }),
-              });
-            } catch (err) {
-              console.error("Error marking notification as read:", err);
+        if (data.notifications && data.notifications.length > 0) {
+          data.notifications.forEach(async (note) => {
+            if (!note.read) {
+              try {
+                await fetch("/api/staff/announcements", {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
+                  credentials: "include",
+                  body: JSON.stringify({ id: note.id }),
+                });
+              } catch (err) {
+                console.error("Error marking announcement as read:", err);
+              }
             }
-          }
-        });
+          });
+        }
       } catch (error) {
-        console.error("Error fetching notifications:", error);
+        console.error("Error fetching announcements:", error);
         setError("Failed to load announcements: " + error.message);
         setNotifications([]);
       }
@@ -706,7 +879,7 @@ const StaffAnnouncementsPage = () => {
         <div className="public-alert-box">
           <h3>Latest Announcements</h3>
           {error && <p className="form-error">{error}</p>}
-          {notifications.length === 0 ? (
+          {currentNotifications.length === 0 ? (
             <p className="no-announcements">No announcements available.</p>
           ) : (
             <div className="announcements-section">

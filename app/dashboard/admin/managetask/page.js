@@ -431,12 +431,402 @@
 
 // export default ManageTaskPage;
 
+// "use client";
+// import React, { useState, useEffect } from "react";
+// import AdminSidebar from "../AdminSidebar";
+// import "../admin.css";
+// import "./managetask.css";
+// import { FaEdit, FaTimes } from "react-icons/fa";
+// import jsPDF from "jspdf";
+// import autoTable from "jspdf-autotable";
+
+// const ManageTaskPage = () => {
+//   const [hasMounted, setHasMounted] = useState(false);
+//   const [tasks, setTasks] = useState([]);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [nameFilter, setNameFilter] = useState("");
+//   const [emailFilter, setEmailFilter] = useState("");
+//   const [startDate, setStartDate] = useState("");
+//   const [endDate, setEndDate] = useState("");
+//   const [statusFilter, setStatusFilter] = useState("All");
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editTask, setEditTask] = useState(null);
+//   const [staffList, setStaffList] = useState([]);
+//   const [error, setError] = useState("");
+//   const tasksPerPage = 8;
+
+//   useEffect(() => {
+//     setHasMounted(true);
+//     fetchTasks();
+//   }, []);
+
+//   useEffect(() => {
+//     setCurrentPage(1);
+//   }, [searchTerm, nameFilter, emailFilter, startDate, endDate, statusFilter]);
+
+//   const fetchTasks = async () => {
+//     try {
+//       const query = new URLSearchParams({
+//         description: searchTerm,
+//         name: nameFilter,
+//         email: emailFilter,
+//         startDate,
+//         endDate,
+//         status: statusFilter === "All" ? "" : statusFilter,
+//       }).toString();
+//       const response = await fetch(`/api/admin/task-history?${query}`, {
+//         credentials: "include",
+//       });
+//       if (!response.ok) {
+//         const errorData = await response.json();
+//         throw new Error(errorData.error || "Failed to fetch tasks");
+//       }
+//       const data = await response.json();
+//       setTasks(data.taskHistories || []);
+//       // Extract unique staff for dropdowns
+//       const staff = [
+//         ...new Set(
+//           data.taskHistories.map((task) => ({
+//             _id: task.staffId,
+//             name: task.staffName,
+//             email: task.staffEmail,
+//           }))
+//         ),
+//       ];
+//       setStaffList(staff);
+//       setError("");
+//     } catch (err) {
+//       console.error("Error fetching tasks:", err);
+//       setError("Failed to load tasks: " + err.message);
+//       setTasks([]);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (hasMounted) fetchTasks();
+//   }, [searchTerm, nameFilter, emailFilter, startDate, endDate, statusFilter]);
+
+//   const uniqueStatuses = ["All", "Assigned", "Started", "Completed"];
+
+//   const totalPages = Math.max(1, Math.ceil(tasks.length / tasksPerPage));
+//   const paginated = tasks.slice(
+//     (currentPage - 1) * tasksPerPage,
+//     currentPage * tasksPerPage
+//   );
+
+//   const handleEditTask = (task) => {
+//     setEditTask({ ...task });
+//     setIsEditing(true);
+//   };
+
+//   const handleEditSubmit = async (e) => {
+//     e.preventDefault();
+//     if (!editTask.description.trim()) {
+//       alert("Task Description cannot be empty.");
+//       return;
+//     }
+//     try {
+//       const response = await fetch("/api/admin/task-history", {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         credentials: "include",
+//         body: JSON.stringify({
+//           taskId: editTask._id,
+//           description: editTask.description,
+//           staffId: staffList.find((s) => s.email === editTask.assignedTo)?._id,
+//           status: editTask.status,
+//         }),
+//       });
+//       if (!response.ok) throw new Error("Failed to update task");
+//       setTasks(
+//         tasks.map((task) =>
+//           task._id === editTask._id ? { ...task, ...editTask } : task
+//         )
+//       );
+//       setIsEditing(false);
+//     } catch (err) {
+//       alert("Error updating task: " + err.message);
+//     }
+//   };
+
+//   const handleEditInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setEditTask({ ...editTask, [name]: value });
+//   };
+
+//   const handleExport = (format) => {
+//     if (tasks.length === 0) {
+//       alert("No tasks to export.");
+//       return;
+//     }
+//     const exportData = tasks.map((task) => ({
+//       Description: task.description,
+//       "Staff Name": task.staffName,
+//       "Staff Email": task.staffEmail,
+//       Status: task.status,
+//       "Assigned At": new Date(task.assignedAt).toLocaleString("en-IN", {
+//         timeZone: "Asia/Kolkata",
+//       }),
+//       "Started At": task.startedAt
+//         ? new Date(task.startedAt).toLocaleString("en-IN", {
+//             timeZone: "Asia/Kolkata",
+//           })
+//         : "",
+//       "Completed At": task.completedAt
+//         ? new Date(task.completedAt).toLocaleString("en-IN", {
+//             timeZone: "Asia/Kolkata",
+//           })
+//         : "",
+//       "Admin Email": task.adminEmail,
+//     }));
+
+//     const filename = `task_history_${new Date().toISOString().split("T")[0]}`;
+//     if (format === "csv") {
+//       const csvContent = [
+//         Object.keys(exportData[0]).join(","),
+//         ...exportData.map((row) =>
+//           Object.values(row)
+//             .map((val) => `"${String(val).replace(/"/g, '""')}"`)
+//             .join(",")
+//         ),
+//       ].join("\n");
+//       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+//       const link = document.createElement("a");
+//       link.href = URL.createObjectURL(blob);
+//       link.download = `${filename}.csv`;
+//       link.click();
+//       URL.revokeObjectURL(link.href);
+//     } else {
+//       const doc = new jsPDF();
+//       doc.setFont("helvetica");
+//       doc.setFontSize(12);
+//       doc.text("Task History Report", 14, 20);
+//       autoTable(doc, {
+//         startY: 30,
+//         head: [Object.keys(exportData[0])],
+//         body: exportData.map((row) => Object.values(row)),
+//         theme: "grid",
+//         styles: { fontSize: 10, cellPadding: 2 },
+//         headStyles: { fillColor: [0, 194, 255], textColor: [0, 0, 0] },
+//         alternateRowStyles: { fillColor: [240, 240, 240] },
+//       });
+//       doc.save(`${filename}.pdf`);
+//     }
+//   };
+
+//   const closeModal = () => {
+//     setIsEditing(false);
+//   };
+
+//   if (!hasMounted) return null;
+
+//   return (
+//     <div className="admin-dashboard-container">
+//       <AdminSidebar />
+//       <div className="admin-dashboard-main">
+//         <h1 className="admin-task-title">📋 Manage Task History</h1>
+//         {error && <p className="form-error">{error}</p>}
+
+//         <div className="admin-task-controls">
+//           <input
+//             type="text"
+//             placeholder="Search by description..."
+//             value={searchTerm}
+//             onChange={(e) => setSearchTerm(e.target.value)}
+//           />
+//           <input
+//             type="text"
+//             placeholder="Filter by staff name..."
+//             value={nameFilter}
+//             onChange={(e) => setNameFilter(e.target.value)}
+//           />
+//           <input
+//             type="email"
+//             placeholder="Filter by staff email..."
+//             value={emailFilter}
+//             onChange={(e) => setEmailFilter(e.target.value)}
+//           />
+//           <input
+//             type="date"
+//             placeholder="Start date"
+//             value={startDate}
+//             onChange={(e) => setStartDate(e.target.value)}
+//           />
+//           <input
+//             type="date"
+//             placeholder="End date"
+//             value={endDate}
+//             onChange={(e) => setEndDate(e.target.value)}
+//           />
+//           <select
+//             value={statusFilter}
+//             onChange={(e) => setStatusFilter(e.target.value)}
+//           >
+//             {uniqueStatuses.map((status) => (
+//               <option key={status} value={status}>
+//                 {status}
+//               </option>
+//             ))}
+//           </select>
+//           <button
+//             className="admin-export-button"
+//             onClick={() => handleExport("csv")}
+//           >
+//             Export CSV
+//           </button>
+//           <button
+//             className="admin-export-button"
+//             onClick={() => handleExport("pdf")}
+//           >
+//             Export PDF
+//           </button>
+//         </div>
+
+//         {paginated.length === 0 ? (
+//           <p className="admin-no-tasks">No tasks found.</p>
+//         ) : (
+//           <div className="admin-task-table-container">
+//             <table className="admin-task-table">
+//               <thead>
+//                 <tr>
+//                   <th>Description</th>
+//                   <th>Staff Name</th>
+//                   <th>Staff Email</th>
+//                   <th>Status</th>
+//                   <th>Assigned At</th>
+//                   <th>Started At</th>
+//                   <th>Completed At</th>
+//                   <th>Admin Email</th>
+//                   <th>Edit</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {paginated.map((task) => (
+//                   <tr key={task._id}>
+//                     <td>{task.description}</td>
+//                     <td>{task.staffName}</td>
+//                     <td>{task.staffEmail}</td>
+//                     <td className={`admin-status-${task.status.toLowerCase()}`}>
+//                       {task.status}
+//                     </td>
+//                     <td>
+//                       {new Date(task.assignedAt).toLocaleString("en-IN", {
+//                         timeZone: "Asia/Kolkata",
+//                       })}
+//                     </td>
+//                     <td>
+//                       {task.startedAt
+//                         ? new Date(task.startedAt).toLocaleString("en-IN", {
+//                             timeZone: "Asia/Kolkata",
+//                           })
+//                         : "-"}
+//                     </td>
+//                     <td>
+//                       {task.completedAt
+//                         ? new Date(task.completedAt).toLocaleString("en-IN", {
+//                             timeZone: "Asia/Kolkata",
+//                           })
+//                         : "-"}
+//                     </td>
+//                     <td>{task.adminEmail}</td>
+//                     <td>
+//                       <button
+//                         className="admin-edit-button"
+//                         onClick={() => handleEditTask(task)}
+//                         aria-label={`Edit ${task.description}`}
+//                       >
+//                         <FaEdit />
+//                       </button>
+//                     </td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           </div>
+//         )}
+
+//         {isEditing && (
+//           <div className="admin-task-modal-overlay" onClick={closeModal}>
+//             <div
+//               className="admin-task-modal"
+//               onClick={(e) => e.stopPropagation()}
+//             >
+//               <button
+//                 className="admin-modal-close"
+//                 onClick={closeModal}
+//                 aria-label="Close modal"
+//               >
+//                 <FaTimes />
+//               </button>
+//               <form onSubmit={handleEditSubmit} className="admin-task-form">
+//                 <h3>Edit Task</h3>
+//                 <input
+//                   type="text"
+//                   name="description"
+//                   placeholder="Task Description"
+//                   value={editTask.description}
+//                   onChange={handleEditInputChange}
+//                   required
+//                 />
+//                 <select
+//                   name="assignedTo"
+//                   value={editTask.assignedTo}
+//                   onChange={handleEditInputChange}
+//                 >
+//                   {staffList.map((staff) => (
+//                     <option key={staff._id} value={staff.email}>
+//                       {staff.name} ({staff.email})
+//                     </option>
+//                   ))}
+//                 </select>
+//                 <select
+//                   name="status"
+//                   value={editTask.status}
+//                   onChange={handleEditInputChange}
+//                 >
+//                   <option value="Assigned">Assigned</option>
+//                   <option value="Started">Started</option>
+//                   <option value="Completed">Completed</option>
+//                 </select>
+//                 <button type="submit">Save Changes</button>
+//                 <button
+//                   type="button"
+//                   className="admin-modal-cancel"
+//                   onClick={() => setIsEditing(false)}
+//                 >
+//                   Cancel
+//                 </button>
+//               </form>
+//             </div>
+//           </div>
+//         )}
+
+//         <div className="admin-task-pagination">
+//           {Array.from({ length: totalPages }, (_, i) => (
+//             <button
+//               key={i}
+//               onClick={() => setCurrentPage(i + 1)}
+//               className={i + 1 === currentPage ? "active" : ""}
+//               disabled={i + 1 === currentPage}
+//               aria-label={`Go to page ${i + 1}`}
+//             >
+//               {i + 1}
+//             </button>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ManageTaskPage;
 "use client";
 import React, { useState, useEffect } from "react";
-import AdminSidebar from "../AdminSidebar";
+import { useRouter } from "next/navigation";
 import "../admin.css";
 import "./managetask.css";
-import { FaEdit, FaTimes } from "react-icons/fa";
+import { FaEdit, FaTimes, FaArrowLeft } from "react-icons/fa";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -455,6 +845,7 @@ const ManageTaskPage = () => {
   const [staffList, setStaffList] = useState([]);
   const [error, setError] = useState("");
   const tasksPerPage = 8;
+  const router = useRouter();
 
   useEffect(() => {
     setHasMounted(true);
@@ -484,7 +875,6 @@ const ManageTaskPage = () => {
       }
       const data = await response.json();
       setTasks(data.taskHistories || []);
-      // Extract unique staff for dropdowns
       const staff = [
         ...new Set(
           data.taskHistories.map((task) => ({
@@ -507,7 +897,14 @@ const ManageTaskPage = () => {
     if (hasMounted) fetchTasks();
   }, [searchTerm, nameFilter, emailFilter, startDate, endDate, statusFilter]);
 
-  const uniqueStatuses = ["All", "Assigned", "Started", "Completed"];
+  const uniqueStatuses = [
+    "All",
+    "Assigned",
+    "Started",
+    "Completed",
+    "Rejected",
+    "Delegated",
+  ];
 
   const totalPages = Math.max(1, Math.ceil(tasks.length / tasksPerPage));
   const paginated = tasks.slice(
@@ -534,14 +931,21 @@ const ManageTaskPage = () => {
         body: JSON.stringify({
           taskId: editTask._id,
           description: editTask.description,
-          staffId: staffList.find((s) => s.email === editTask.assignedTo)?._id,
+          staffId: staffList.find((s) => s.email === editTask.staffEmail)?._id,
           status: editTask.status,
         }),
       });
       if (!response.ok) throw new Error("Failed to update task");
       setTasks(
         tasks.map((task) =>
-          task._id === editTask._id ? { ...task, ...editTask } : task
+          task._id === editTask._id
+            ? {
+                ...task,
+                description: editTask.description,
+                status: editTask.status,
+                staffEmail: editTask.staffEmail,
+              }
+            : task
         )
       );
       setIsEditing(false);
@@ -552,7 +956,11 @@ const ManageTaskPage = () => {
 
   const handleEditInputChange = (e) => {
     const { name, value } = e.target;
-    setEditTask({ ...editTask, [name]: value });
+    if (name === "assignedTo") {
+      setEditTask({ ...editTask, staffEmail: value });
+    } else {
+      setEditTask({ ...editTask, [name]: value });
+    }
   };
 
   const handleExport = (format) => {
@@ -561,13 +969,19 @@ const ManageTaskPage = () => {
       return;
     }
     const exportData = tasks.map((task) => ({
+      Title: task.title,
+      Department: task.department,
       Description: task.description,
       "Staff Name": task.staffName,
       "Staff Email": task.staffEmail,
+      "Team Leader": task.teamLeaderName,
+      "Admin Email": task.adminEmail,
       Status: task.status,
-      "Assigned At": new Date(task.assignedAt).toLocaleString("en-IN", {
-        timeZone: "Asia/Kolkata",
-      }),
+      "Assigned At": task.assignedAt
+        ? new Date(task.assignedAt).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+          })
+        : "",
       "Started At": task.startedAt
         ? new Date(task.startedAt).toLocaleString("en-IN", {
             timeZone: "Asia/Kolkata",
@@ -578,7 +992,26 @@ const ManageTaskPage = () => {
             timeZone: "Asia/Kolkata",
           })
         : "",
-      "Admin Email": task.adminEmail,
+      "Rejected At": task.rejectedAt
+        ? new Date(task.rejectedAt).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+          })
+        : "",
+      "Admin Accepted At": task.adminAcceptedAt
+        ? new Date(task.adminAcceptedAt).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+          })
+        : "",
+      "Admin Rejected At": task.adminRejectedAt
+        ? new Date(task.adminRejectedAt).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+          })
+        : "",
+      "Rejection Count": task.rejectionCount,
+      "Admin Rejection Count": task.adminRejectionCount,
+      "Rejection Reason": task.rejectionReason || "",
+      "Admin Rejection Reason": task.adminRejectionReason || "",
+      "Accepted By Team Leader": task.acceptedByTeamLeader ? "Yes" : "No",
     }));
 
     const filename = `task_history_${new Date().toISOString().split("T")[0]}`;
@@ -607,7 +1040,7 @@ const ManageTaskPage = () => {
         head: [Object.keys(exportData[0])],
         body: exportData.map((row) => Object.values(row)),
         theme: "grid",
-        styles: { fontSize: 10, cellPadding: 2 },
+        styles: { fontSize: 8, cellPadding: 2 },
         headStyles: { fillColor: [0, 194, 255], textColor: [0, 0, 0] },
         alternateRowStyles: { fillColor: [240, 240, 240] },
       });
@@ -623,9 +1056,17 @@ const ManageTaskPage = () => {
 
   return (
     <div className="admin-dashboard-container">
-      <AdminSidebar />
       <div className="admin-dashboard-main">
-        <h1 className="admin-task-title">📋 Manage Task History</h1>
+        <div className="admin-header">
+          <button
+            className="admin-back-button"
+            onClick={() => router.push("/dashboard/admin")}
+            aria-label="Back to Admin Dashboard"
+          >
+            <FaArrowLeft />
+          </button>
+          <h1 className="admin-task-title">📋 Manage Task History</h1>
+        </div>
         {error && <p className="form-error">{error}</p>}
 
         <div className="admin-task-controls">
@@ -690,30 +1131,48 @@ const ManageTaskPage = () => {
             <table className="admin-task-table">
               <thead>
                 <tr>
+                  <th>Title</th>
+                  <th>Department</th>
                   <th>Description</th>
                   <th>Staff Name</th>
                   <th>Staff Email</th>
+                  <th>Team Leader</th>
+                  <th>Admin Email</th>
                   <th>Status</th>
                   <th>Assigned At</th>
                   <th>Started At</th>
                   <th>Completed At</th>
-                  <th>Admin Email</th>
+                  <th>Rejected At</th>
+                  <th>Admin Accepted At</th>
+                  <th>Admin Rejected At</th>
+                  <th>Rejection Count</th>
+                  <th>Admin Rejection Count</th>
+                  <th>Rejection Reason</th>
+                  <th>Admin Rejection Reason</th>
+                  <th>Accepted By TL</th>
                   <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
                 {paginated.map((task) => (
                   <tr key={task._id}>
+                    <td>{task.title}</td>
+                    <td>{task.department}</td>
                     <td>{task.description}</td>
                     <td>{task.staffName}</td>
                     <td>{task.staffEmail}</td>
+                    <td>{task.teamLeaderName}</td>{" "}
+                    {/* Fixed: Use teamLeaderName */}
+                    <td>{task.adminEmail}</td>
                     <td className={`admin-status-${task.status.toLowerCase()}`}>
                       {task.status}
                     </td>
                     <td>
-                      {new Date(task.assignedAt).toLocaleString("en-IN", {
-                        timeZone: "Asia/Kolkata",
-                      })}
+                      {task.assignedAt
+                        ? new Date(task.assignedAt).toLocaleString("en-IN", {
+                            timeZone: "Asia/Kolkata",
+                          })
+                        : "-"}
                     </td>
                     <td>
                       {task.startedAt
@@ -729,7 +1188,38 @@ const ManageTaskPage = () => {
                           })
                         : "-"}
                     </td>
-                    <td>{task.adminEmail}</td>
+                    <td>
+                      {task.rejectedAt
+                        ? new Date(task.rejectedAt).toLocaleString("en-IN", {
+                            timeZone: "Asia/Kolkata",
+                          })
+                        : "-"}
+                    </td>
+                    <td>
+                      {task.adminAcceptedAt
+                        ? new Date(task.adminAcceptedAt).toLocaleString(
+                            "en-IN",
+                            {
+                              timeZone: "Asia/Kolkata",
+                            }
+                          )
+                        : "-"}
+                    </td>
+                    <td>
+                      {task.adminRejectedAt
+                        ? new Date(task.adminRejectedAt).toLocaleString(
+                            "en-IN",
+                            {
+                              timeZone: "Asia/Kolkata",
+                            }
+                          )
+                        : "-"}
+                    </td>
+                    <td>{task.rejectionCount}</td>
+                    <td>{task.adminRejectionCount}</td>
+                    <td>{task.rejectionReason || "-"}</td>
+                    <td>{task.adminRejectionReason || "-"}</td>
+                    <td>{task.acceptedByTeamLeader ? "Yes" : "No"}</td>
                     <td>
                       <button
                         className="admin-edit-button"
@@ -761,34 +1251,62 @@ const ManageTaskPage = () => {
               </button>
               <form onSubmit={handleEditSubmit} className="admin-task-form">
                 <h3>Edit Task</h3>
-                <input
-                  type="text"
-                  name="description"
-                  placeholder="Task Description"
-                  value={editTask.description}
-                  onChange={handleEditInputChange}
-                  required
-                />
-                <select
-                  name="assignedTo"
-                  value={editTask.assignedTo}
-                  onChange={handleEditInputChange}
-                >
-                  {staffList.map((staff) => (
-                    <option key={staff._id} value={staff.email}>
-                      {staff.name} ({staff.email})
-                    </option>
-                  ))}
-                </select>
-                <select
-                  name="status"
-                  value={editTask.status}
-                  onChange={handleEditInputChange}
-                >
-                  <option value="Assigned">Assigned</option>
-                  <option value="Started">Started</option>
-                  <option value="Completed">Completed</option>
-                </select>
+                <label>
+                  Task Title (Read-only):
+                  <input
+                    type="text"
+                    value={editTask.title}
+                    disabled
+                    className="admin-task-form-readonly"
+                  />
+                </label>
+                <label>
+                  Department (Read-only):
+                  <input
+                    type="text"
+                    value={editTask.department}
+                    disabled
+                    className="admin-task-form-readonly"
+                  />
+                </label>
+                <label>
+                  Description:
+                  <textarea
+                    name="description"
+                    placeholder="Task Description"
+                    value={editTask.description}
+                    onChange={handleEditInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Assigned To:
+                  <select
+                    name="assignedTo"
+                    value={editTask.staffEmail}
+                    onChange={handleEditInputChange}
+                  >
+                    {staffList.map((staff) => (
+                      <option key={staff._id} value={staff.email}>
+                        {staff.name} ({staff.email})
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Status:
+                  <select
+                    name="status"
+                    value={editTask.status}
+                    onChange={handleEditInputChange}
+                  >
+                    <option value="Assigned">Assigned</option>
+                    <option value="Started">Started</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Delegated">Delegated</option>
+                  </select>
+                </label>
                 <button type="submit">Save Changes</button>
                 <button
                   type="button"

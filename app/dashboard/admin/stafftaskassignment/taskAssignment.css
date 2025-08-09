@@ -113,109 +113,151 @@
 .admin-dashboard-container {
     display: flex;
     min-height: 100vh;
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #fefefe 0%, #f2f2f2 100%);
-    color: #111827;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffffff 0%, #f4f7fa 100%);
+    color: #1f2937;
 }
 
 .admin-dashboard-main {
     flex: 1;
-    padding: 40px 50px;
+    padding: 48px 64px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .task-title {
-    font-size: 32px;
-    font-weight: 600;
-    color: #00c2ff;
-    margin-bottom: 20px;
+    font-size: 2.5rem;
+    /* 40px */
+    font-weight: 700;
+    color: #0284c7;
+    margin-bottom: 32px;
+    text-align: center;
+    letter-spacing: -0.025em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .task-form-card {
-    background: #fff;
-    border-left: 4px solid #00c2ff;
-    padding: 20px;
+    background: #ffffff;
+    border-left: 6px solid #0284c7;
+    padding: 32px;
     border-radius: 12px;
-    box-shadow: 0 0 15px #00c2ff22;
-    max-width: 800px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    max-width: 720px;
     width: 100%;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .form-group label {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
     color: #1f2937;
-    margin-bottom: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+.form-input.error {
+    border-color: #ef4444;
 }
 
 .form-select {
     width: 100%;
-    padding: 12px;
+    padding: 12px 16px;
     font-size: 1rem;
-    line-height: 1.5;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border-radius: 8px;
     background: #f9fafb;
-    color: #4b5563;
-    height: 200px;
+    color: #1f2937;
+    height: 180px;
+    transition: border-color 0.2s ease;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
 }
 
 .form-select.error {
-    border-color: #ff4d4d;
+    border-color: #ef4444;
 }
 
 .form-textarea {
     width: 100%;
-    padding: 10px;
-    font-size: 0.9rem;
+    padding: 12px 16px;
+    font-size: 0.95rem;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border-radius: 8px;
     background: #f9fafb;
-    color: #4b5563;
-    min-height: 80px;
+    color: #1f2937;
+    min-height: 120px;
     resize: vertical;
+    transition: border-color 0.2s ease;
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
 }
 
 .form-textarea.error {
-    border-color: #ff4d4d;
-}
-
-.task-descriptions h3 {
-    font-size: 1.1rem;
-    color: #00aacc;
-    margin-bottom: 15px;
+    border-color: #ef4444;
 }
 
 .assign-button {
-    padding: 10px 20px;
-    background: #00c2ff;
-    color: #000000;
+    padding: 12px 24px;
+    background: #0284c7;
+    color: #ffffff;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .assign-button:hover {
-    background: #00aacc;
-    transform: scale(1.03);
+    background: #0369a1;
+    transform: translateY(-2px);
+}
+
+.assign-button:active {
+    transform: translateY(0);
 }
 
 .form-error {
-    color: #ff4d4d;
-    font-size: 0.8rem;
-    margin-top: 4px;
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-weight: 500;
 }
 
 .form-success {
-    color: #00aacc;
-    font-size: 0.9rem;
-    margin-top: 10px;
+    color: #10b981;
+    font-size: 0.95rem;
+    margin-top: 12px;
+    font-weight: 500;
 }

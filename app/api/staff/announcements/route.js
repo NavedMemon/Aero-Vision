@@ -1,55 +1,3 @@
-// import { NextResponse } from "next/server";
-// import connectDB from "@/lib/db";
-// import Notification from "@/model/Notification";
-
-// export async function GET(request) {
-//   try {
-//     await connectDB();
-//     const { userId, role } = await (
-//       await fetch(new URL("/api/get-token", request.url))
-//     ).json();
-//     if (role !== "Staff") {
-//       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-//     }
-//     const notifications = await Notification.find({
-//       userId,
-//       userModel: "Staff",
-//     }).sort({ createdAt: -1 });
-//     return NextResponse.json({ notifications });
-//   } catch (error) {
-//     console.error("Error fetching staff notifications:", error);
-//     return NextResponse.json(
-//       { error: "Failed to fetch notifications: " + error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-// export async function PUT(request) {
-//   try {
-//     await connectDB();
-//     const { id } = await request.json();
-//     const notification = await Notification.findByIdAndUpdate(
-//       id,
-//       { read: true },
-//       { new: true }
-//     );
-//     if (!notification) {
-//       return NextResponse.json(
-//         { error: "Notification not found" },
-//         { status: 404 }
-//       );
-//     }
-//     return NextResponse.json({ notification });
-//   } catch (error) {
-//     console.error("Error marking notification as read:", error);
-//     return NextResponse.json(
-//       { error: "Failed to mark notification as read: " + error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import Notification from "@/model/Notification";
@@ -88,6 +36,7 @@ export async function GET(request) {
     const notifications = await Notification.find({
       userId: decoded.id,
       userModel: "Staff",
+      announcementId: { $ne: null },
     })
       .populate({
         path: "announcementId",
@@ -106,15 +55,15 @@ export async function GET(request) {
     }));
 
     console.log(
-      "Fetched notifications for staff:",
+      "Fetched announcements for staff:",
       formattedNotifications.length,
       formattedNotifications
     );
     return NextResponse.json({ notifications: formattedNotifications });
   } catch (error) {
-    console.error("Error fetching notifications:", error.message);
+    console.error("Error fetching announcements:", error.message);
     return NextResponse.json(
-      { error: "Failed to fetch notifications: " + error.message },
+      { error: "Failed to fetch announcements: " + error.message },
       { status: 500 }
     );
   }
@@ -153,24 +102,29 @@ export async function PUT(request) {
     }
 
     const notification = await Notification.findOneAndUpdate(
-      { _id: id, userId: decoded.id, userModel: "Staff" },
+      {
+        _id: id,
+        userId: decoded.id,
+        userModel: "Staff",
+        announcementId: { $ne: null },
+      },
       { read: true },
       { new: true }
     );
 
     if (!notification) {
       return NextResponse.json(
-        { error: "Notification not found" },
+        { error: "Announcement not found" },
         { status: 404 }
       );
     }
 
-    console.log("Notification marked as read:", id);
-    return NextResponse.json({ message: "Notification marked as read" });
+    console.log("Announcement marked as read:", id);
+    return NextResponse.json({ message: "Announcement marked as read" });
   } catch (error) {
-    console.error("Error marking notification as read:", error.message);
+    console.error("Error marking announcement as read:", error.message);
     return NextResponse.json(
-      { error: "Failed to mark notification as read: " + error.message },
+      { error: "Failed to mark announcement as read: " + error.message },
       { status: 500 }
     );
   }
