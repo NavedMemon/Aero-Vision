@@ -490,6 +490,181 @@
 
 // export default StaffNotifications;
 
+// "use client";
+// import React, { useState, useEffect } from "react";
+// import StaffSidebar from "../StaffSideBar";
+// import "./staffnotifications.css";
+
+// const StaffNotifications = () => {
+//   const [notifications, setNotifications] = useState([]);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [user, setUser] = useState({
+//     role: "Staff",
+//     staffRole: null,
+//   });
+//   const [error, setError] = useState("");
+//   const itemsPerPage = 5;
+
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//       try {
+//         const response = await fetch("/api/get-token", {
+//           credentials: "include",
+//         });
+//         if (!response.ok) {
+//           throw new Error("Failed to fetch user data");
+//         }
+//         const data = await response.json();
+//         console.log("Fetched user:", { id: data.id, role: data.role });
+//         setUser({
+//           role: data.role,
+//           staffRole: data.role,
+//         });
+//       } catch (error) {
+//         console.error("Error fetching user:", error);
+//         setError("Failed to load user data: " + error.message);
+//       }
+//     };
+
+//     const fetchNotifications = async () => {
+//       try {
+//         const response = await fetch("/api/staff/notifications", {
+//           credentials: "include",
+//         });
+//         if (!response.ok) {
+//           const errorData = await response.json();
+//           throw new Error(errorData.error || "Failed to fetch notifications");
+//         }
+//         const data = await response.json();
+//         // Filter for task or team leader notifications
+//         const taskNotifications = (data.notifications || []).filter(
+//           (note) =>
+//             note.taskId ||
+//             note.text.toLowerCase().includes("task assigned") ||
+//             note.text.toLowerCase().includes("team leader")
+//         );
+//         console.log("Raw notifications:", data.notifications);
+//         console.log("Filtered task notifications:", taskNotifications);
+//         setNotifications(taskNotifications);
+//         setError("");
+
+//         if (taskNotifications.length > 0) {
+//           taskNotifications.forEach(async (note) => {
+//             if (!note.read) {
+//               try {
+//                 await fetch("/api/staff/notifications", {
+//                   method: "PUT",
+//                   headers: { "Content-Type": "application/json" },
+//                   credentials: "include",
+//                   body: JSON.stringify({ id: note.id }),
+//                 });
+//               } catch (err) {
+//                 console.error("Error marking notification as read:", err);
+//               }
+//             }
+//           });
+//         }
+//       } catch (error) {
+//         console.error("Error fetching notifications:", error);
+//         setError("Failed to load notifications: " + error.message);
+//         setNotifications([]);
+//       }
+//     };
+
+//     fetchUser();
+//     fetchNotifications();
+//   }, []);
+
+//   const totalPages = Math.ceil((notifications || []).length / itemsPerPage);
+//   const paginatedNotifications = (notifications || []).slice(
+//     (currentPage - 1) * itemsPerPage,
+//     currentPage * itemsPerPage
+//   );
+
+//   const getNotificationText = (note) => {
+//     if (!note || !note.text) {
+//       return "Unknown notification";
+//     }
+
+//     const text = note.text.toLowerCase();
+
+//     // Team leader assignment or removal notifications
+//     if (text.includes("team leader")) {
+//       return note.text;
+//     }
+
+//     // Task assignment notifications
+//     if (note.taskId || text.includes("task assigned")) {
+//       return `You have been assigned a new task by admin: ${
+//         note.text.split(": ")[1] || "Task"
+//       }`;
+//     }
+
+//     return "Unknown notification";
+//   };
+
+//   return (
+//     <div className="staff-dashboard-wrapper">
+//       <StaffSidebar userRole={user.role} />
+//       <div className="notifications-container">
+//         <h1 className="notifications-title">Staff Notifications</h1>
+//         {error && <p className="form-error">{error}</p>}
+//         {paginatedNotifications.length === 0 ? (
+//           <p className="no-announcements">No notifications available.</p>
+//         ) : (
+//           <div className="notifications-list">
+//             {paginatedNotifications.map((note) => (
+//               <div key={note.id} className="notification-card">
+//                 <p className="note-text">{getNotificationText(note)}</p>
+//                 <p className="note-time">
+//                   🕒{" "}
+//                   {new Date(note.createdAt).toLocaleString("en-IN", {
+//                     dateStyle: "medium",
+//                     timeStyle: "short",
+//                   })}
+//                 </p>
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//         {totalPages > 1 && (
+//           <div className="pagination">
+//             <button
+//               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+//               disabled={currentPage === 1}
+//               className="pagination-btn"
+//             >
+//               Previous
+//             </button>
+//             {Array.from({ length: totalPages }, (_, i) => (
+//               <button
+//                 key={i + 1}
+//                 onClick={() => setCurrentPage(i + 1)}
+//                 className={`pagination-btn ${
+//                   currentPage === i + 1 ? "active" : ""
+//                 }`}
+//               >
+//                 {i + 1}
+//               </button>
+//             ))}
+//             <button
+//               onClick={() =>
+//                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+//               }
+//               disabled={currentPage === totalPages}
+//               className="pagination-btn"
+//             >
+//               Next
+//             </button>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default StaffNotifications;
+
 "use client";
 import React, { useState, useEffect } from "react";
 import StaffSidebar from "../StaffSideBar";
@@ -515,6 +690,7 @@ const StaffNotifications = () => {
           throw new Error("Failed to fetch user data");
         }
         const data = await response.json();
+        console.log("Fetched user:", { id: data.id, role: data.role });
         setUser({
           role: data.role,
           staffRole: data.role,
@@ -535,12 +711,15 @@ const StaffNotifications = () => {
           throw new Error(errorData.error || "Failed to fetch notifications");
         }
         const data = await response.json();
-        console.log("Fetched notifications:", data.notifications || []);
-        setNotifications(data.notifications || []);
+        // No filtering, display all notifications
+        const taskNotifications = data.notifications || [];
+        console.log("Raw notifications:", data.notifications);
+        console.log("Filtered task notifications:", taskNotifications);
+        setNotifications(taskNotifications);
         setError("");
 
-        if (data.notifications && data.notifications.length > 0) {
-          data.notifications.forEach(async (note) => {
+        if (taskNotifications.length > 0) {
+          taskNotifications.forEach(async (note) => {
             if (!note.read) {
               try {
                 await fetch("/api/staff/notifications", {
@@ -573,10 +752,26 @@ const StaffNotifications = () => {
   );
 
   const getNotificationText = (note) => {
-    if (note.text.includes("task assigned by admin")) {
-      return "You have been assigned a new task by admin";
+    if (!note || !note.text) {
+      return "Unknown notification";
     }
-    return "You have a new announcement from admin";
+
+    const text = note.text.toLowerCase();
+
+    // Team leader assignment or removal notifications
+    if (text.includes("team leader")) {
+      return note.text;
+    }
+
+    // Task assignment notifications
+    if (note.taskId || text.includes("task assigned")) {
+      return `You have been assigned a new task by admin: ${
+        note.text.split(": ")[1] || "Task"
+      }`;
+    }
+
+    // Fallback for announcements or other notifications
+    return note.text;
   };
 
   return (
@@ -593,7 +788,7 @@ const StaffNotifications = () => {
               <div key={note.id} className="notification-card">
                 <p className="note-text">{getNotificationText(note)}</p>
                 <p className="note-time">
-                  🕒{" "}
+                  🕒
                   {new Date(note.createdAt).toLocaleString("en-IN", {
                     dateStyle: "medium",
                     timeStyle: "short",

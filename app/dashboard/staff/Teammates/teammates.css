@@ -1,0 +1,83 @@
+.teammates-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.teammates-content {
+    flex: 1;
+    padding: 20px;
+    background: #0a0f0f;
+    /* Very dark cyan-black background */
+    color: #e0f7fa;
+    /* Soft cyan text */
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.teammates-content h2 {
+    color: #00e5ff;
+    /* Bright cyan for title */
+    margin-bottom: 20px;
+    border-bottom: 2px solid #00bcd4;
+    padding-bottom: 5px;
+}
+
+.teammates-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #002f2f;
+    /* Dark cyan */
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.teammates-table th,
+.teammates-table td {
+    padding: 14px;
+    text-align: left;
+}
+
+.teammates-table th {
+    background: #004d4d;
+    /* Deep cyan */
+    color: #00e5ff;
+    /* Neon cyan text */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    border-bottom: 2px solid #00e5ff;
+}
+
+.teammates-table tr {
+    transition: background 0.2s ease-in-out;
+}
+
+.teammates-table tr:nth-child(even) {
+    background: #013636;
+    /* Slightly lighter cyan */
+}
+
+.teammates-table tr:nth-child(odd) {
+    background: #002f2f;
+}
+
+.teammates-table tr:hover {
+    background: #005b5b;
+    /* Hover cyan */
+    cursor: pointer;
+}
+
+.teammates-table td {
+    color: #e0f7fa;
+    /* Light cyan text */
+    border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.error {
+    color: #ff5252;
+    /* Bright red for errors */
+    font-weight: bold;
+    background: rgba(255, 82, 82, 0.1);
+    padding: 8px;
+    border-radius: 4px;
+}

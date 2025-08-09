@@ -66,6 +66,7 @@ import {
   FaTasks,
   FaDoorOpen,
   FaClipboardList,
+  FaHistory,
 } from "react-icons/fa";
 import { FcLeave } from "react-icons/fc";
 
@@ -125,6 +126,12 @@ const AdminSidebar = () => {
           className="admin-nav-link"
         >
           <FaClipboardList /> Assign Tasks
+        </Link>
+        <Link
+          href="/dashboard/admin/AdminTaskHistoryPage"
+          className="admin-nav-link"
+        >
+          <FaHistory /> All Tasks
         </Link>
         <Link href="/dashboard/admin/managetask" className="admin-nav-link">
           <FaTasks /> Manage Tasks
